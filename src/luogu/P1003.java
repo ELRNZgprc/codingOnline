@@ -11,14 +11,14 @@ public class P1003 {
         private int xLength;
         private int yLength;
 
-        public Carpet(int x, int y, int xl, int yl) {
+        Carpet(int x, int y, int xl, int yl) {
             this.x = x;
             this.y = y;
             this.xLength = xl;
             this.yLength = yl;
         }
 
-        public boolean isContain(int tx, int ty) {
+        boolean isContain(int tx, int ty) {
             return (((this.x <= tx) && (this.x + this.xLength - 1 >= tx)) && ((this.y <= ty) && (this.y + this.yLength - 1 >= ty)));
         }
     }
