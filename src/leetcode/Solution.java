@@ -1,11 +1,9 @@
 package leetcode;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Solution {
     /**
      * Mianshiti 60
+     * https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/
      *
      * @param n int
      * @return a double[]
@@ -38,17 +36,16 @@ public class Solution {
             total += sum[n][j];
         }
 
-
         for (j = n; j <= 6 * n; j++) {
             ans[j - n] = ((double) sum[n][j]) / total;
         }
-
 
         return ans;
     }
 
     /**
      * 394
+     * https://leetcode-cn.com/problems/decode-string/
      *
      * @param s String
      * @return String
@@ -92,6 +89,7 @@ public class Solution {
 
     /**
      * 37
+     * https://leetcode-cn.com/problems/sudoku-solver/
      *
      * @param board char[][]
      */
@@ -108,7 +106,6 @@ public class Solution {
                 block[i][j] = true;
             }
         }
-
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -166,6 +163,7 @@ public class Solution {
 
     /**
      * 111
+     * https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
      *
      * @param root TreeNode
      * @return int
@@ -219,6 +217,7 @@ public class Solution {
 
     /**
      * 2
+     * https://leetcode-cn.com/problems/binary-search/
      *
      * @param l1
      * @param l2
@@ -247,6 +246,7 @@ public class Solution {
 
     /**
      * 3
+     * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
      *
      * @param s
      * @return
@@ -254,18 +254,192 @@ public class Solution {
     public int lengthOfLongestSubstring(String s) {
         int ans = 0;
         int[] hash = new int[128];
-        for(int i= 0;i<128;i++){
-            hash[i]=-1;
+        for (int i = 0; i < 128; i++) {
+            hash[i] = -1;
         }
-        int start= 0;
-        for (int i = 0;i<s.length();i++){
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
             int num = s.charAt(i);
-            start = Math.max(start,hash[num]+1);
-            ans = Math.max(ans,i-start+1);
+            start = Math.max(start, hash[num] + 1);
+            ans = Math.max(ans, i - start + 1);
             hash[num] = i;
         }
         return ans;
     }
+
+    /**
+     * 198
+     * https://leetcode-cn.com/problems/house-robber/comments/
+     *
+     * @param nums
+     * @return
+     */
+    public int rob(int[] nums) {
+        int length = nums.length;
+        if (length == 0) {
+            return 0;
+        } else if (length == 1) {
+            return nums[0];
+        } else {
+            int[] memory = new int[length];
+
+            memory[0] = nums[0];
+            memory[1] = Math.max(nums[0], nums[1]);
+
+            for (int i = 2; i < length; i++) {
+                memory[i] = Math.max(memory[i - 2] + nums[i], memory[i - 1]);
+            }
+
+            return memory[length - 1];
+        }
+    }
+
+    /**
+     * mianshiti 08.11
+     * https://leetcode-cn.com/problems/coin-lcci/
+     *
+     * @param n
+     * @return
+     */
+    public int waysToChange(int n) {
+        int[] memory = new int[n + 1];
+        int[] icons = {25, 10, 5, 1};
+        memory[0] = 1;
+        for (int icon :
+                icons) {
+            for (int i = 1; i <= n; i++) {
+                if (i - icon >= 0) {
+                    memory[i] = (memory[i] + memory[i - icon]) % 1000000007;
+                }
+            }
+        }
+        return memory[n];
+    }
+
+    /**
+     * 974
+     * https://leetcode-cn.com/problems/subarray-sums-divisible-by-k/
+     *
+     * @param A
+     * @param K
+     * @return
+     */
+    public int subarraysDivByK(int[] A, int K) {
+        int[] hash = new int[K];
+        int sum = 0;
+        for (int i = 0; i < A.length; i++) {
+            sum = (sum + A[i]) % K;
+            if (sum < 0)
+                sum += K;
+            hash[sum]++;
+        }
+
+        int ans = hash[0];
+        for (int i = 0; i < K; i++) {
+            if (hash[i] >= 2) {
+                ans += (hash[i] * (hash[i] - 1)) / 2;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * mainshiti58
+     * https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+     *
+     * @param s
+     * @param n
+     * @return
+     */
+    public String reverseLeftWords(String s, int n) {
+        return s.substring(n) + s.substring(0, n);
+    }
+
+    /**
+     * 84
+     * https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+     *
+     * @param heights
+     * @return
+     */
+
+    public int largestRectangleArea(int[] heights) {
+        if (heights.length > 0) {
+            int max = heights[0];
+
+            for (int i = 0; i < heights.length; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (heights[j] > heights[i]) {
+                        heights[j] = heights[i];
+                    }
+                }
+                for (int j = 0; j <= i; j++) {
+                    if ((heights[j] * (i - j + 1)) > max) {
+                        max = heights[j] * (i - j + 1);
+                    }
+                }
+            }
+            return max;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 14
+     * https://leetcode-cn.com/problems/longest-common-prefix/
+     *
+     * @param strs
+     * @return
+     */
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length > 0) {
+            int len = strs[0].length();
+            for (int i = 1; i < strs.length; i++) {
+                if (strs[i].length() < len) {
+                    len = strs[i].length();
+                }
+            }
+
+            if (len > 0) {
+                StringBuffer sb = new StringBuffer();
+                boolean flag = true;
+                int i = 0;
+                while ((i < len) && (flag)) {
+                    char c = strs[0].charAt(i);
+
+                    int j = 1;
+                    while ((j < strs.length) && flag) {
+                        if (strs[j].charAt(i) != c) {
+                            flag = false;
+                        }
+                        j++;
+                    }
+                    if (flag) {
+                        sb.append(c);
+                    }
+                    i++;
+                }
+                return sb.toString();
+            } else {
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * 1108
+     * https://leetcode-cn.com/problems/defanging-an-ip-address/
+     *
+     * @param address
+     * @return
+     */
+    public String defangIPaddr(String address) {
+        return address.replace(".","[.]");
+    }
 }
+
 
 
