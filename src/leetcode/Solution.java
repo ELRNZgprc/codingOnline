@@ -1,5 +1,10 @@
 package leetcode;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Solution {
     /**
      * Mianshiti 60
@@ -437,7 +442,130 @@ public class Solution {
      * @return
      */
     public String defangIPaddr(String address) {
-        return address.replace(".","[.]");
+        return address.replace(".", "[.]");
+    }
+
+    /**
+     * 1431
+     * https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/
+     *
+     * @param candies      int[]
+     * @param extraCandies int
+     * @return
+     */
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        List<Boolean> ans = new ArrayList<>();
+
+        int max = 0;
+        for (int i = 1; i < candies.length; i++) {
+            if (candies[i] > candies[max]) {
+                max = i;
+            }
+        }
+
+        for (int i = 0; i < candies.length; i++) {
+            ans.add(candies[max] - candies[i] <= extraCandies);
+        }
+
+        return ans;
+    }
+
+    /**
+     * 56
+     * https://leetcode-cn.com/problems/merge-intervals/
+     *
+     * @param intervals
+     * @return
+     */
+    public int[][] merge(int[][] intervals) {
+        if (intervals == null || intervals.length < 2) {
+            return intervals;
+        }
+        Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+
+        List<int[]> ans = new ArrayList<>();
+
+        int[] pre = intervals[0];
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] <= pre[1]) {
+                pre[1] = Math.max(intervals[i][1], pre[1]);
+            } else {
+                ans.add(pre);
+                pre = intervals[i];
+            }
+        }
+        ans.add(pre);
+        return ans.toArray(new int[ans.size()][2]);
+    }
+
+    /**
+     * 235
+     * https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if ((p.val - root.val) * (q.val - root.val) <= 0) {
+            return root;
+        }
+        if ((q.val > root.val) && (p.val > root.val)) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+    }
+
+    /**
+     * 19
+     * https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
+     *
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if ((head == null) || (head.next == null)) {
+            return null;
+        }
+        ListNode p = head;
+        ListNode q = head;
+        for (int i = 0; i < n; i++) {
+            q = q.next;
+        }
+        if (q == null) {
+            return head.next;
+        }
+        while (q.next != null) {
+            q = q.next;
+            p = p.next;
+        }
+        p.next = p.next.next;
+        return head;
+    }
+
+    /**
+     * 11
+     * https://leetcode-cn.com/problems/container-with-most-water/
+     *
+     * @param height
+     * @return
+     */
+    public int maxArea(int[] height) {
+        int i = 0;
+        int j= height.length-1;
+        int ans = 0;
+        while (i<j){
+            ans= Math.max (ans,Math.min(height[i],height[j])*(j-i));
+            if (height[i]>height[j]){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return ans;
     }
 }
 
