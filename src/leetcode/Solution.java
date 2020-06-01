@@ -555,17 +555,74 @@ public class Solution {
      */
     public int maxArea(int[] height) {
         int i = 0;
-        int j= height.length-1;
+        int j = height.length - 1;
         int ans = 0;
-        while (i<j){
-            ans= Math.max (ans,Math.min(height[i],height[j])*(j-i));
-            if (height[i]>height[j]){
+        while (i < j) {
+            ans = Math.max(ans, Math.min(height[i], height[j]) * (j - i));
+            if (height[i] > height[j]) {
                 j--;
-            }else{
+            } else {
                 i++;
             }
         }
         return ans;
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        generate(ans, "", 0, 0, n);
+        return ans;
+    }
+
+    /**
+     * 22
+     * https://leetcode-cn.com/problems/generate-parentheses/
+     *
+     * @param ans
+     * @param str
+     * @param left
+     * @param right
+     * @param n
+     */
+    public void generate(List<String> ans, String str, int left, int right, int n) {
+        if ((left == n) && (right == n)) {
+            ans.add(str);
+        } else {
+            if (left < n) {
+                generate(ans, str + "(", left + 1, right, n);
+            }
+            if (right < left) {
+                generate(ans, str + ")", left, right + 1, n);
+            }
+        }
+    }
+
+    /**
+     * 45
+     * https://leetcode-cn.com/problems/jump-game-ii/
+     *
+     * @param nums
+     * @return
+     */
+    public int jump(int[] nums) {
+        int[] record = new int[nums.length];
+
+        record[0] = 0;
+        for (int i = 1; i < nums.length; i++) {
+            record[i] = -1;
+        }
+
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = 1; j <= nums[i]; j++) {
+                if (i + j < nums.length) {
+                    if ((record[i + j] == -1) || (record[i + j] > record[i] + 1)) {
+                        record[i + j] = record[i] + 1;
+                    }
+                }
+            }
+        }
+
+        return record[nums.length - 1];
     }
 }
 
