@@ -624,6 +624,49 @@ public class Solution {
 
         return record[nums.length - 1];
     }
+
+    /**
+     * 1346
+     * https://leetcode-cn.com/problems/check-if-n-and-its-double-exist/
+     *
+     * @param arr
+     * @return
+     */
+    public boolean checkIfExist(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if ((arr[j] == 2 * arr[i]) || (arr[i] == 2 * arr[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 921
+     * https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/
+     *
+     * @param S
+     * @return
+     */
+    public int minAddToMakeValid(String S) {
+        int left = 0;
+        int ans = 0;
+        for (int i = 0; i < S.length(); i++) {
+            if (S.charAt(i) == '(') {
+                left++;
+            } else {
+                if (left > 0) {
+                    left--;
+                } else {
+                    ans++;
+                }
+            }
+        }
+        ans += left;
+        return ans;
+    }
 }
 
 
