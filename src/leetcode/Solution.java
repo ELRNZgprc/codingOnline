@@ -1,9 +1,6 @@
 package leetcode;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
     /**
@@ -701,6 +698,54 @@ public class Solution {
             sum += dp[i];
         }
         return usable / sum;
+    }
+
+    /**
+     * 238
+     * https://leetcode-cn.com/problems/product-of-array-except-self/
+     *
+     * @param nums
+     * @return
+     */
+    public int[] productExceptSelf(int[] nums) {
+        int length = nums.length;
+        int[] left = new int[length];
+        int[] right = new int[length];
+        left[0] = 1;
+        for (int i = 1; i < length; i++) {
+            left[i] = left[i - 1] * nums[i - 1];
+        }
+        right[length - 1] = 1;
+        for (int i = length - 2; i >= 0; i--) {
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+        int[] ans = new int[length];
+        for (int i = 0; i < length; i++) {
+            ans[i] = left[i] * right[i];
+        }
+        return ans;
+    }
+
+    /**
+     * 929
+     * https://leetcode-cn.com/problems/unique-email-addresses/
+     *
+     * @param emails
+     * @return
+     */
+    public int numUniqueEmails(String[] emails) {
+        if (emails.length < 1) return 0;
+
+        Set<String> set = new HashSet<>();
+        for (String str : emails) {
+            String[] strs = str.split("@");
+            strs[0] = strs[0].replace(".", "");
+            if (strs[0].contains("+")) {
+                strs[0] = strs[0].substring(0, strs[0].indexOf("+"));
+            }
+            set.add(strs[0] + "@" + strs[1]);
+        }
+        return set.size();
     }
 }
 
