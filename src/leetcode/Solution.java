@@ -747,6 +747,91 @@ public class Solution {
         }
         return set.size();
     }
+
+    /**
+     * 15
+     * https://leetcode-cn.com/problems/3sum/
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if ((i == 0) || ((i > 0) && (nums[i] != nums[i - 1]))) {
+                int j = i + 1;
+                int k = nums.length - 1;
+                int target = 0 - nums[i];
+                while (j < k) {
+                    if (nums[j] + nums[k] == target) {
+                        ans.add((Arrays.asList(nums[i], nums[j], nums[k])));
+                        while ((j < k) && (nums[j + 1] == nums[j])) j++;
+                        while ((j < k) && (nums[k - 1] == nums[k])) k--;
+                        j++;
+                        k--;
+                    } else if (nums[j] + nums[k] < target) {
+                        while ((j < k) && (nums[j + 1] == nums[j])) j++;
+                        j++;
+                    } else {
+                        while ((j < k) && (nums[k - 1] == nums[k])) k--;
+                        k--;
+                    }
+                }
+            }
+        }
+
+        return ans;
+    }
+
+    /**
+     * 9
+     * https://leetcode-cn.com/problems/palindrome-number/
+     *
+     * @param x
+     * @return
+     */
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
+        int y = x;
+        int target = 0;
+
+        while (y > 0) {
+            int i = y % 10;
+            target = target * 10 + i;
+            y /= 10;
+        }
+        return (target == x);
+    }
+
+    /**
+     * 739
+     * https://leetcode-cn.com/problems/daily-temperatures/
+     *
+     * @param T
+     * @return
+     */
+    public int[] dailyTemperatures(int[] T) {
+        Stack<Integer> z = new Stack<>();
+        int[] ans = new int[T.length];
+        z.push(T.length-1);
+        ans[T.length - 1] = 0;
+        for (int i = T.length - 2; i >= 0; i--) {
+            while ((!z.isEmpty()) && (T[z.peek()] <= T[i])) {
+                z.pop();
+            }
+
+            if (!z.isEmpty()) {
+                ans[i] = z.peek() - i;
+            } else
+                ans[i] = 0;
+
+            z.push(i);
+        }
+        return ans;
+    }
 }
 
 
