@@ -816,7 +816,7 @@ public class Solution {
     public int[] dailyTemperatures(int[] T) {
         Stack<Integer> z = new Stack<>();
         int[] ans = new int[T.length];
-        z.push(T.length-1);
+        z.push(T.length - 1);
         ans[T.length - 1] = 0;
         for (int i = T.length - 2; i >= 0; i--) {
             while ((!z.isEmpty()) && (T[z.peek()] <= T[i])) {
@@ -831,6 +831,63 @@ public class Solution {
             z.push(i);
         }
         return ans;
+    }
+
+    /**
+     * 1014
+     * https://leetcode-cn.com/problems/best-sightseeing-pair/
+     *
+     * @param A
+     * @return
+     */
+    public int maxScoreSightseeingPair(int[] A) {
+        int ans = -1;
+        int max = A[0];
+        for (int i = 1; i < A.length; i++) {
+            int mem = max + A[i] - i;
+            if ((ans == -1) || (mem > ans)) {
+                ans = mem;
+            }
+            if (A[i] + i > max) {
+                max = A[i] + i;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1221
+     * https://leetcode-cn.com/problems/split-a-string-in-balanced-strings/
+     *
+     * @param s
+     * @return
+     */
+    public int balancedStringSplit(String s) {
+        int ans = 0;
+        int l=0;
+        for (int i = 0;i<s.length();i++){
+            if (s.charAt(i)=='R'){
+                l++;
+            }
+            if (s.charAt(i)=='L'){
+                l--;
+            }
+            if (l==0){
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 319
+     * https://leetcode-cn.com/problems/bulb-switcher/
+     *
+     * @param n
+     * @return
+     */
+    public int bulbSwitch(int n) {
+        return (int) Math.sqrt(n);
     }
 }
 
