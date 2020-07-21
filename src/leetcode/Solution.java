@@ -158,8 +158,17 @@ public class Solution {
         TreeNode left;
         TreeNode right;
 
-        TreeNode(int x) {
-            val = x;
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
         }
     }
 
@@ -864,15 +873,15 @@ public class Solution {
      */
     public int balancedStringSplit(String s) {
         int ans = 0;
-        int l=0;
-        for (int i = 0;i<s.length();i++){
-            if (s.charAt(i)=='R'){
+        int l = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'R') {
                 l++;
             }
-            if (s.charAt(i)=='L'){
+            if (s.charAt(i) == 'L') {
                 l--;
             }
-            if (l==0){
+            if (l == 0) {
                 ans++;
             }
         }
@@ -889,7 +898,79 @@ public class Solution {
     public int bulbSwitch(int n) {
         return (int) Math.sqrt(n);
     }
-}
 
+    /**
+     * 125
+     * https://leetcode-cn.com/problems/valid-palindrome/
+     *
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s) {
+        if (s.equals("")) return true;
+        s = s.toLowerCase();
+        StringBuilder s1 = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (((s.charAt(i) <= '9') && (s.charAt(i) >= '0')) || ((s.charAt(i) <= 'z') && ((s.charAt(i) >= 'a')))) {
+                s1.append(s.charAt(i));
+            }
+        }
+        return s1.toString().equals(s1.reverse().toString());
+    }
+
+    /**
+     * 167
+     * https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
+     *
+     * @param numbers
+     * @param target
+     * @return
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int[] ans = new int[2];
+        int left = 0;
+        int right = numbers.length - 1;
+        while (left < right) {
+            if (numbers[left] + numbers[right] == target) {
+                ans[0] = left;
+                ans[1] = right;
+                break;
+            } else if (numbers[left] + numbers[right] > target) {
+                right--;
+            } else
+                left++;
+        }
+        return ans;
+    }
+
+    /**
+     * 209
+     * https://leetcode-cn.com/problems/minimum-size-subarray-sum/
+     *
+     * @param s
+     * @param nums
+     * @return
+     */
+    public int minSubArrayLen(int s, int[] nums) {
+        int i = -1;
+        int j = -1;
+        int sum = 0;
+        int length = 0;
+        while (i < nums.length - 1) {
+            while ((i < nums.length - 1) && (sum < s)) {
+                i++;
+                sum += nums[i];
+            }
+            while (sum >= s) {
+                if ((length == 0) || (i - j < length)) {
+                    length = i - j;
+                }
+                j++;
+                sum -= nums[j];
+            }
+        }
+        return length;
+    }
+}
 
 
