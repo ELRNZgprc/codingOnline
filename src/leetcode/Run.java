@@ -3,8 +3,10 @@ package leetcode;
 public class Run {
     public static void main(String args[]) {
         Solution solution = new Solution();
-        int[] numbers = {2,3,1,2,4,3};
-        int target = 7;
-        System.out.println(solution.minSubArrayLen(target,numbers));
+       int[] p1={0,0};
+        int[] p2={0,0};
+        int[] p3={0,0};
+        int[] p4={0,0};
+        System.out.println(solution.validSquare(p1,p2,p3,p4));
     }
 }
