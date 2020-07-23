@@ -971,6 +971,186 @@ public class Solution {
         }
         return length;
     }
+
+    /**
+     * 1013
+     * https://leetcode-cn.com/problems/partition-array-into-three-parts-with-equal-sum/
+     *
+     * @param A
+     * @return
+     */
+    public boolean canThreePartsEqualSum(int[] A) {
+        int sum = 0;
+        for (int i = 0; i < A.length; i++) {
+            sum += A[i];
+        }
+        if (sum % 3 != 0) {
+            return false;
+        }
+        int target = sum / 3;
+        int times = 0;
+        sum = 0;
+        for (int i = 0; i < A.length; i++) {
+            sum += A[i];
+            if (sum == target) {
+                times++;
+                sum = 0;
+            }
+        }
+        return (times == 3) || ((times > 3) && (target == 0));
+    }
+
+    /**
+     * 1339
+     * https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/
+     *
+     * @param root
+     * @return
+     */
+    public int maxProduct(TreeNode root) {
+        int sum = getSum(root);
+        pre(root, sum);
+        int k = 1000000007;
+        long c = a % k;
+        long d = b % k;
+        return (int) ((a / k + b / k + a / k * d + b / k * c) % k + c * d % k) % k;
+    }
+
+    int getSum(TreeNode p) {
+        if (p != null) {
+            p.val = p.val + getSum(p.left) + getSum(p.right);
+        } else {
+            return 0;
+        }
+        return p.val;
+    }
+
+    long a = Integer.MAX_VALUE;
+    long b = Integer.MIN_VALUE;
+
+    void pre(TreeNode p, int sum) {
+        if (p != null) {
+            if (Math.abs(a - b) > Math.abs(sum - 2 * p.val)) {
+                a = sum - p.val;
+                b = p.val;
+            }
+            pre(p.left, sum);
+            pre(p.right, sum);
+        }
+    }
+
+    /**
+     * 64
+     * https://leetcode-cn.com/problems/minimum-path-sum/
+     *
+     * @param grid
+     * @return
+     */
+    public int minPathSum(int[][] grid) {
+        if (grid == null || grid.length < 1 || grid[0] == null || grid[0].length < 1) {
+            return 0;
+        }
+
+        int n = grid.length;
+        int m = grid[n - 1].length;
+        int[][] dp = new int[n][m];
+
+        dp[0][0] = grid[0][0];
+
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = grid[i][0] + dp[i - 1][0];
+        }
+
+        for (int j = 1; j < m; j++) {
+            dp[0][j] = grid[0][j] + dp[0][j - 1];
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                dp[i][j] = grid[i][j] + Math.min(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+
+        return dp[n - 1][m - 1];
+    }
+
+    /**
+     * 565
+     * https://leetcode-cn.com/problems/array-nesting/
+     *
+     * @param nums
+     * @return
+     */
+    public int arrayNesting(int[] nums) {
+        int length = nums.length;
+        int[] nested = new int[length];
+        int max = 0;
+        int rings = 0;
+        for (int i = 0; i < length; i++) {
+            if (nested[i] == 0) {
+                rings++;
+                int curLength = 0;
+                int p = i;
+                while (nested[p] == 0) {
+                    nested[p] = rings;
+                    p = nums[p];
+                    curLength++;
+                }
+                if (curLength > max) {
+                    max = curLength;
+                }
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 915
+     * https://leetcode-cn.com/problems/partition-array-into-disjoint-intervals/
+     *
+     * @param A
+     * @return
+     */
+    public int partitionDisjoint(int[] A) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+
+        int length = A.length;
+        int[] leftMax = new int[length];
+        int[] rightMin = new int[length];
+
+        leftMax[0] = A[0];
+        for (int i = 1; i < length; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], A[i]);
+        }
+
+        rightMin[length - 1] = A[length - 1];
+
+        for (int i = length - 2; i > -1; i--) {
+            rightMin[i] = Math.min(rightMin[i + 1], A[i]);
+        }
+
+        int ans = 0;
+        while (leftMax[ans] > rightMin[ans + 1]) {
+            ans++;
+        }
+        return ans + 1;
+    }
+
+    /**
+     * mianshiti 01.09
+     * https://leetcode-cn.com/problems/string-rotation-lcci/
+     *
+     * @param s1
+     * @param s2
+     * @return
+     */
+    public boolean isFlipedString(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        String ss = s2 + s2;
+        return ss.contains(s1);
+    }
 }
 
 
