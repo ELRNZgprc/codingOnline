@@ -1192,7 +1192,28 @@ public class Solution {
         return (((z > x) && (x == y) && (z == x + y)) || ((y > x) && (x == z) && (y == x + z)) || ((x > y) && (z == y) && (x == z + y)));
     }
 
-
+    /**
+     * 343
+     * https://leetcode-cn.com/problems/integer-break/
+     *
+     * @param n
+     * @return
+     */
+    public int integerBreak(int n) {
+        if (n==2) return 1;
+        if (n==3) return 2;
+        int[] ans = new int[n+1];
+        ans[0]=0;
+        ans[1]=1;
+        ans[2]=2;
+        ans[3]=3;
+        for (int i=4;i<=n;i++){
+            for (int j =1;j<i;j++){
+                ans[i]=Math.max(ans[i],ans[j]*(i-j));
+            }
+        }
+        return ans[n];
+    }
 }
 
 
