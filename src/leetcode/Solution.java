@@ -11,9 +11,6 @@ public class Solution {
      * @return a double[]
      */
     public double[] twoSum(int n) {
-        // Write your code here
-        // Ps. new AbstractMap.SimpleEntry<Integer, Double>(sum, pro)
-        // to create the pair
         double[] ans = new double[5 * n + 1];
 
         int[][] sum = new int[n + 1][6 * n + 1];
@@ -88,14 +85,12 @@ public class Solution {
         return ans;
     }
 
-
     /**
      * 37
      * https://leetcode-cn.com/problems/sudoku-solver/
      *
      * @param board char[][]
      */
-
     public void solveSudoku(char[][] board) {
         boolean[][] row = new boolean[9][9];
         boolean[][] col = new boolean[9][9];
@@ -179,7 +174,6 @@ public class Solution {
      * @param root TreeNode
      * @return int
      */
-
     public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
@@ -196,6 +190,7 @@ public class Solution {
 
     /**
      * 704
+     * https://leetcode-cn.com/problems/binary-search/
      *
      * @param nums
      * @param target
@@ -373,7 +368,6 @@ public class Solution {
      * @param heights
      * @return
      */
-
     public int largestRectangleArea(int[] heights) {
         if (heights.length > 0) {
             int max = heights[0];
@@ -1281,7 +1275,6 @@ public class Solution {
      * @param nums
      * @return
      */
-
     public boolean judgePoint24(int[] nums) {
         double a = nums[0];
         double b = nums[1];
@@ -1322,8 +1315,7 @@ public class Solution {
                 judge3(d - c, a, b) ||
                 judge3(c * d, a, b) ||
                 judge3(c / d, a, b) ||
-                judge3(d / c, a, b)
-                ;
+                judge3(d / c, a, b);
     }
 
     boolean judge3(double a, double b, double c) {
@@ -1662,7 +1654,6 @@ public class Solution {
         return true;
     }
 
-
     /**
      * 414
      * https://leetcode-cn.com/problems/third-maximum-number/
@@ -1727,5 +1718,3 @@ public class Solution {
         return true;
     }
 }
-
-
