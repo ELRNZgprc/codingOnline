@@ -1214,6 +1214,163 @@ public class Solution {
         }
         return ans[n];
     }
+
+    /**
+     * 335
+     * https://leetcode-cn.com/problems/self-crossing/
+     *
+     * @param x
+     * @return
+     */
+    public boolean isSelfCrossing(int[] x) {
+        if (x.length < 4) return false;
+        boolean b = false;
+        for (int i = 2; i < x.length; i++) {
+            if (b && x[i] >= x[i - 2]) return true;
+            if (!b && x[i] <= x[i - 2]) {
+                b = true;
+                if (i < x.length - 1 && x[i + 1] >= x[i - 1]) return true;
+                if (i < x.length - 1 && i > 3 && x[i] + x[i - 4] >= x[i - 2] && x[i + 1] + x[i - 3] >= x[i - 1])
+                    return true;
+                if (i < x.length - 1 && i >= 3 && x[i] == x[i - 2] && x[i + 1] + x[i - 3] >= x[i - 1]) return true;
+                i++;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 1338
+     * https://leetcode-cn.com/problems/reduce-array-size-to-the-half/
+     *
+     * @param arr
+     * @return
+     */
+    public int minSetSize(int[] arr) {
+        Arrays.sort(arr);
+
+        List<Integer> nums = new ArrayList<>();
+
+        int count = 1;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == arr[i - 1]) {
+                count++;
+            } else {
+                nums.add(count);
+                count = 1;
+            }
+        }
+        nums.add(count);
+
+        Collections.sort(nums);
+        int ans = 0;
+        int size = 0;
+        int i = nums.size() - 1;
+        while (size < (arr.length / 2)) {
+            ans++;
+            size += nums.get(i);
+            i--;
+        }
+        return ans;
+    }
+
+    /**
+     * 679
+     * https://leetcode-cn.com/problems/24-game/
+     *
+     * @param nums
+     * @return
+     */
+
+    public boolean judgePoint24(int[] nums) {
+        double a = nums[0];
+        double b = nums[1];
+        double c = nums[2];
+        double d = nums[3];
+        return judge3(a + b, c, d) ||
+                judge3(a - b, c, d) ||
+                judge3(b - a, c, d) ||
+                judge3(a * b, c, d) ||
+                judge3(a / b, c, d) ||
+                judge3(b / a, c, d) ||
+                judge3(a + c, b, d) ||
+                judge3(a - c, b, d) ||
+                judge3(c - a, b, d) ||
+                judge3(a * c, b, d) ||
+                judge3(a / c, b, d) ||
+                judge3(c / a, b, d) ||
+                judge3(a + d, b, c) ||
+                judge3(a - d, b, c) ||
+                judge3(d - a, b, c) ||
+                judge3(a * d, b, c) ||
+                judge3(a / d, b, c) ||
+                judge3(d / a, b, c) ||
+                judge3(b + c, a, d) ||
+                judge3(b - c, a, d) ||
+                judge3(c - b, a, d) ||
+                judge3(b * c, a, d) ||
+                judge3(b / c, a, d) ||
+                judge3(c / b, a, d) ||
+                judge3(b + d, a, c) ||
+                judge3(b - d, a, c) ||
+                judge3(d - b, a, c) ||
+                judge3(b * d, a, c) ||
+                judge3(b / d, a, c) ||
+                judge3(d / b, a, c) ||
+                judge3(c + d, a, b) ||
+                judge3(c - d, a, b) ||
+                judge3(d - c, a, b) ||
+                judge3(c * d, a, b) ||
+                judge3(c / d, a, b) ||
+                judge3(d / c, a, b)
+                ;
+    }
+
+    boolean judge3(double a, double b, double c) {
+        return judge(a + b, c) ||
+                judge(a - b, c) ||
+                judge(b - a, c) ||
+                judge(a * b, c) ||
+                judge(a / b, c) ||
+                judge(b / a, c) ||
+                judge(a + c, b) ||
+                judge(a - c, b) ||
+                judge(c - a, b) ||
+                judge(a * c, b) ||
+                judge(a / c, b) ||
+                judge(c / a, b) ||
+                judge(b + c, a) ||
+                judge(b - c, a) ||
+                judge(c - b, a) ||
+                judge(b * c, a) ||
+                judge(b / c, a) ||
+                judge(c / b, a);
+    }
+
+    boolean judge(double a, double b) {
+        return (Math.abs(a + b - 24) < 0.01) ||
+                (Math.abs(a - b - 24) < 0.01) ||
+                (Math.abs(b - a - 24) < 0.01) ||
+                (Math.abs(a * b - 24) < 0.01) ||
+                (Math.abs(a / b - 24) < 0.01) ||
+                (Math.abs(b / a - 24) < 0.01);
+    }
+
+    /**
+     * mianshiti 08.03
+     * https://leetcode-cn.com/problems/magic-index-lcci/
+     *
+     * @param nums
+     * @return
+     */
+    public int findMagicIndex(int[] nums) {
+        for (int i = 0; i < nums.length; ) {
+            if (nums[i] == i)
+                return i;
+            i = Math.max(i + 1, nums[i]);
+        }
+        return -1;
+    }
 }
 
 
