@@ -201,7 +201,7 @@ public class Solution {
      * @param target
      * @return
      */
-    public int search(int[] nums, int target) {
+    public int search704(int[] nums, int target) {
         int i = 0;
         int j = nums.length - 1;
         while (i <= j) {
@@ -1370,6 +1370,361 @@ public class Solution {
             i = Math.max(i + 1, nums[i]);
         }
         return -1;
+    }
+
+    /**
+     * 98
+     * https://leetcode-cn.com/problems/validate-binary-search-tree/
+     *
+     * @param root
+     * @return
+     */
+    public boolean isValidBST(TreeNode root) {
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    boolean isValid(TreeNode p, long min, long max) {
+        if (p == null) {
+            return true;
+        }
+        if ((p.val <= min) || (p.val >= max)) {
+            return false;
+        }
+        return (isValid(p.left, min, p.val) && isValid(p.right, p.val, max));
+    }
+
+
+    /**
+     * 61
+     * https://leetcode-cn.com/problems/rotate-list/
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode p = head;
+        int length = 0;
+        while (p != null) {
+            length++;
+            p = p.next;
+        }
+        k = k % length;
+        if (k == 0) {
+            return head;
+        }
+        p = head;
+        ListNode pre = head;
+        for (int i = 0; i < length - k; i++) {
+            pre = p;
+            p = p.next;
+        }
+        ListNode q = p;
+        while (q.next != null) {
+            q = q.next;
+        }
+
+        q.next = head;
+        head = p;
+        pre.next = null;
+
+        return head;
+    }
+
+    /**
+     * 81
+     * https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public boolean search81(int[] nums, int target) {
+        if (nums.length == 0) {
+            return false;
+        }
+        if (target >= nums[0]) {
+            int i = 0;
+            if (nums[i] == target) return true;
+            i++;
+            while ((i < nums.length) && (nums[i] >= nums[i - 1])) {
+                if (nums[i] == target) {
+                    return true;
+                }
+                if (nums[i] > target) {
+                    return false;
+                }
+                i++;
+            }
+            return false;
+        } else {
+            int i = 1;
+            while ((i < nums.length) && (nums[i] >= nums[i - 1])) {
+                i++;
+            }
+            while (i < nums.length) {
+                if (nums[i] == target) {
+                    return true;
+                }
+                if (nums[i] > target) {
+                    return false;
+                }
+                i++;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * 1375
+     * https://leetcode-cn.com/problems/bulb-switcher-iii/
+     *
+     * @param light
+     * @return
+     */
+    public int numTimesAllBlue(int[] light) {
+        int ans = 0;
+        int max = 0;
+        for (int i = 0; i < light.length; i++) {
+            max = Math.max(max, light[i]);
+            if (i + 1 == max) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * mianshiti 01.07
+     * https://leetcode-cn.com/problems/rotate-matrix-lcci/
+     *
+     * @param matrix
+     */
+    public void rotate(int[][] matrix) {
+        int length = matrix.length;
+        int[][] newMatrix = new int[length + 1][length + 1];
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                newMatrix[j][length - 1 - i] = matrix[i][j];
+            }
+        }
+
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                matrix[i][j] = newMatrix[i][j];
+            }
+        }
+    }
+
+    /**
+     * 397
+     * https://leetcode-cn.com/problems/integer-replacement/
+     *
+     * @param n
+     * @return
+     */
+    public int integerReplacement(int n) {
+        long ln = n;
+        int ans = 0;
+        while (ln != 1) {
+            if (((ln & 3) == 3) && (ln != 3)) {
+                ln++;
+            } else if ((ln & 1) == 1) {
+                ln--;
+            } else {
+                ln = ln >> 1;
+            }
+            ans++;
+        }
+        return ans;
+    }
+
+    /**
+     * 1475
+     * https://leetcode-cn.com/problems/final-prices-with-a-special-discount-in-a-shop/
+     *
+     * @param prices
+     * @return
+     */
+    public int[] finalPrices(int[] prices) {
+        int[] ans = new int[prices.length];
+
+        for (int i = 0; i < prices.length; i++) {
+            int j = i + 1;
+            while ((j < prices.length) && (prices[j] > prices[i])) {
+                j++;
+            }
+            if (j < prices.length) {
+                ans[i] = prices[i] - prices[j];
+            } else {
+                ans[i] = prices[i];
+            }
+        }
+
+        return ans;
+    }
+
+    /**
+     * 1480
+     * https://leetcode-cn.com/problems/running-sum-of-1d-array/
+     *
+     * @param nums
+     * @return
+     */
+    public int[] runningSum(int[] nums) {
+        for (int i = 1; i < nums.length; ++i) {
+            nums[i] += nums[i - 1];
+        }
+        return nums;
+    }
+
+    /**
+     * 258
+     * https://leetcode-cn.com/problems/add-digits/
+     *
+     * @param num
+     * @return
+     */
+    public int addDigits(int num) {
+        return (num - 1) % 9 + 1;
+    }
+
+    /**
+     * 594
+     * https://leetcode-cn.com/problems/longest-harmonious-subsequence/
+     *
+     * @param nums
+     * @return
+     */
+    public int findLHS(int[] nums) {
+        if (nums.length == 0) return 0;
+        Arrays.sort(nums);
+        int left = 0;
+        int right = left;
+        int ans = 0;
+        while (right < nums.length) {
+            right = left + 1;
+            while ((right < nums.length) && (nums[right] == nums[left])) {
+                right++;
+            }
+            if ((right < nums.length) && (nums[right] == nums[left] + 1)) {
+                int newright = right;
+                while ((newright < nums.length) && (nums[newright] == nums[left] + 1)) {
+                    newright++;
+                }
+                ans = Math.max(ans, newright - left);
+            }
+            left = right;
+        }
+
+        return ans;
+    }
+
+    /**
+     * 860
+     * https://leetcode-cn.com/problems/lemonade-change/
+     *
+     * @param bills
+     * @return
+     */
+    public boolean lemonadeChange(int[] bills) {
+        int five = 0;
+        int ten = 0;
+        for (int i : bills) {
+            switch (i) {
+                case 5:
+                    five++;
+                    break;
+                case 10:
+                    if (five > 0) {
+                        five--;
+                        ten++;
+                    } else {
+                        return false;
+                    }
+                    break;
+                case 20:
+                    if ((ten > 0) && (five > 0)) {
+                        five--;
+                        ten--;
+                    } else if (five > 2) {
+                        five -= 3;
+                    } else {
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 414
+     * https://leetcode-cn.com/problems/third-maximum-number/
+     *
+     * @param nums
+     * @return
+     */
+    public int thirdMax(int[] nums) {
+        int a = Integer.MIN_VALUE;
+        int b = Integer.MIN_VALUE;
+        int c = Integer.MIN_VALUE;
+        int num = 0;
+        boolean flag = true;
+
+        for (int i : nums) {
+            if (i > a) {
+                c = b;
+                b = a;
+                a = i;
+                num++;
+            }
+            if ((i < a) && (i > b)) {
+                c = b;
+                b = i;
+                num++;
+            }
+            ;
+            if ((i < b) && (i > c)) {
+                c = i;
+                num++;
+            }
+            if ((i == Integer.MIN_VALUE) && (flag)) {
+                num++;
+                flag = false;
+            }
+        }
+
+        if (num >= 3) {
+            return c;
+        } else {
+            return a;
+        }
+    }
+
+    /**
+     * 693
+     * https://leetcode-cn.com/problems/binary-number-with-alternating-bits/
+     *
+     * @param n
+     * @return
+     */
+    public boolean hasAlternatingBits(int n) {
+        int last = n % 2;
+
+        while (n > 1) {
+            n = n >> 1;
+            if (last == (n % 2)) {
+                return false;
+            }
+            last = n % 2;
+        }
+        return true;
     }
 }
 
