@@ -1786,4 +1786,81 @@ public class Solution {
         int[] ans = {begin, begin + length};
         return ans;
     }
+
+    /**
+     * 4
+     * https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] nums = new int[nums1.length + nums2.length];
+
+        int a = 0;
+        int b = 0;
+        int length = 0;
+        while ((a < nums1.length) || (b < nums2.length)) {
+            if (a >= nums1.length) {
+                nums[length++] = nums2[b++];
+            } else if (b >= nums2.length) {
+                nums[length++] = nums1[a++];
+            } else {
+                nums[length++] = (nums1[a] < nums2[b]) ? nums1[a++] : nums2[b++];
+            }
+        }
+        return (length % 2 == 1) ? nums[(length - 1) / 2] : ((nums[length / 2] + nums[length / 2 - 1]) / 2.0);
+    }
+
+    /**
+     * 88
+     * https://leetcode-cn.com/problems/merge-sorted-array/
+     *
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int[] nums = new int[m + n];
+
+        int a = 0;
+        int b = 0;
+        int length = 0;
+        while ((a < m) || (b < n)) {
+            if (a >= m) {
+                nums[length++] = nums2[b++];
+            } else if (b >= n) {
+                nums[length++] = nums1[a++];
+            } else {
+                nums[length++] = (nums1[a] < nums2[b]) ? nums1[a++] : nums2[b++];
+            }
+        }
+
+        for (int i = 0; i < m + n; i++) {
+            nums1[i] = nums[i];
+        }
+    }
+
+    /**
+     * 114
+     * https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
+     *
+     * @param root
+     */
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.left);
+        flatten(root.right);
+        TreeNode treeNode = root.right;
+        root.right = root.left;
+        root.left = null;
+        while (root.right != null) {
+            root = root.right;
+        }
+        root.right = treeNode;
+    }
 }
