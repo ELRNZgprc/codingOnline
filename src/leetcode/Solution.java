@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solution {
@@ -920,7 +921,7 @@ public class Solution {
      * @param target
      * @return
      */
-    public int[] twoSum(int[] numbers, int target) {
+    public int[] twoSum167(int[] numbers, int target) {
         int[] ans = new int[2];
         int left = 0;
         int right = numbers.length - 1;
@@ -1920,31 +1921,148 @@ public class Solution {
     }
 
     /**
-     * 473
-     * https://leetcode-cn.com/problems/matchsticks-to-square/
+     * 951
+     * https://leetcode-cn.com/problems/flip-equivalent-binary-trees/
+     *
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        if ((root1 == null) && (root2 == null)) {
+            return true;
+        }
+        if ((root1 == null) || (root2 == null)) {
+            return false;
+        }
+        if (root1.val == root2.val) {
+            return (flipEquiv(root1.left, root2.left) && (flipEquiv(root1.right, root2.right))) || (flipEquiv(root1.left, root2.right) && (flipEquiv(root1.right, root2.left)));
+        }
+        return false;
+    }
+
+    /**
+     * 744
+     * https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/
+     *
+     * @param letters
+     * @param target
+     * @return
+     */
+    public char nextGreatestLetter(char[] letters, char target) {
+        if (target >= letters[letters.length - 1]) {
+            return letters[0];
+        }
+        int ans = 0;
+        while (letters[ans] <= target) {
+            ans++;
+        }
+        return letters[ans];
+    }
+
+    /**
+     * 1526
+     * https://leetcode-cn.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
+     *
+     * @param target
+     * @return
+     */
+    public int minNumberOperations(int[] target) {
+        int ans = target[0];
+        for (int i = 1; i < target.length; i++) {
+            if (target[i] > target[i - 1]) {
+                ans += target[i] - target[i - 1];
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 228
+     * https://leetcode-cn.com/problems/summary-ranges/
      *
      * @param nums
      * @return
      */
-    public boolean makesquare(int[] nums) {
-        if (nums.length < 4) {
-            return false;
+    public List<String> summaryRanges(int[] nums) {
+        List<String> list = new ArrayList<>();
+        int i = 0;
+        while (i < nums.length) {
+            int j = i;
+            while ((j + 1 < nums.length) && ((nums[j + 1] - nums[i]) == (j + 1 - i))) {
+                j++;
+            }
+            if (j == i) {
+                list.add(nums[i] + "");
+            } else {
+                list.add(nums[i] + "->" + nums[j]);
+            }
+            i = j + 1;
         }
-        int total = 0;
-        for (int num : nums) {
-            total += num;
+        return list;
+    }
+
+    /**
+     * mianshiti 01.08
+     * https://leetcode-cn.com/problems/zero-matrix-lcci/
+     *
+     * @param matrix
+     */
+    public void setZeroes(int[][] matrix) {
+        boolean[] m = new boolean[matrix.length];
+        boolean[] n = new boolean[matrix[0].length];
+
+        for (int i = 0; i < matrix.length; i++) {
+            m[i] = false;
         }
-        if (total % 4 != 0) {
-            return false;
+        for (int j = 0; j < matrix[0].length; j++) {
+            n[j] = false;
         }
 
-        total /= 4;
-        for (int num : nums) {
-            if (num > total) {
-                return false;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    m[i] = true;
+                    n[j] = true;
+                }
             }
         }
 
-        Arrays.sort(nums);
+        for (int i = 0; i < matrix.length; i++) {
+            if (m[i]) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (int j = 0; j < matrix[0].length; j++) {
+            if (n[j]) {
+                for (int i = 0; i < matrix.length; i++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * 1
+     * https://leetcode-cn.com/problems/two-sum/
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum1(int[] nums, int target) {
+        int[] ans = new int[2];
+        for (int i =0;i<nums.length-1;i++){
+            for (int j=i+1;j<nums.length;j++){
+                if (nums[i]+nums[j]==target){
+                    ans[0]=i;
+                    ans[1]=j;
+                    return ans;
+                }
+            }
+        }
+        return ans;
     }
 }

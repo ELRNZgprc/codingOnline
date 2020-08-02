@@ -7,10 +7,8 @@ public class Run {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int n = 2;
+        int[] target={1,1,1,1};
 
-        int[][] prerequisites = {{0,1}};
-
-        System.out.println(solution.canFinish(n,prerequisites));
+        System.out.println(solution.minNumberOperations(target));
     }
 }
