@@ -1863,4 +1863,88 @@ public class Solution {
         }
         root.right = treeNode;
     }
+
+    /**
+     * 70
+     * https://leetcode-cn.com/problems/climbing-stairs/
+     *
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        int[] ans = new int[n + 1];
+        ans[0] = 1;
+        ans[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            ans[i] = ans[i - 1] + ans[i - 2];
+        }
+        return ans[n];
+    }
+
+    /**
+     * 207
+     * https://leetcode-cn.com/problems/course-schedule/
+     *
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] counts = new int[numCourses];
+        Queue<Integer> safety = new LinkedList<>();
+        for (int[] i : prerequisites) {
+            counts[i[0]]++;
+        }
+        for (int i = 0; i < counts.length; i++) {
+            if (counts[i] == 0) {
+                safety.offer(i);
+            }
+        }
+
+        while (safety.size() != 0) {
+            int poll = safety.poll();
+            for (int[] i : prerequisites) {
+                if (i[1] == poll) {
+                    counts[i[0]]--;
+                    if (counts[i[0]] == 0) {
+                        safety.offer(i[0]);
+                    }
+                }
+            }
+        }
+
+        for (int c : counts) {
+            if (c != 0) return false;
+        }
+        return true;
+    }
+
+    /**
+     * 473
+     * https://leetcode-cn.com/problems/matchsticks-to-square/
+     *
+     * @param nums
+     * @return
+     */
+    public boolean makesquare(int[] nums) {
+        if (nums.length < 4) {
+            return false;
+        }
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+        }
+        if (total % 4 != 0) {
+            return false;
+        }
+
+        total /= 4;
+        for (int num : nums) {
+            if (num > total) {
+                return false;
+            }
+        }
+
+        Arrays.sort(nums);
+    }
 }
