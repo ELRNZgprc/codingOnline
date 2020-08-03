@@ -508,14 +508,14 @@ public class Solution {
      * @param q
      * @return
      */
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    public TreeNode lowestCommonAncestor235(TreeNode root, TreeNode p, TreeNode q) {
         if ((p.val - root.val) * (q.val - root.val) <= 0) {
             return root;
         }
         if ((q.val > root.val) && (p.val > root.val)) {
-            return lowestCommonAncestor(root.right, p, q);
+            return lowestCommonAncestor235(root.right, p, q);
         } else {
-            return lowestCommonAncestor(root.left, p, q);
+            return lowestCommonAncestor235(root.left, p, q);
         }
     }
 
@@ -2054,15 +2054,294 @@ public class Solution {
      */
     public int[] twoSum1(int[] nums, int target) {
         int[] ans = new int[2];
-        for (int i =0;i<nums.length-1;i++){
-            for (int j=i+1;j<nums.length;j++){
-                if (nums[i]+nums[j]==target){
-                    ans[0]=i;
-                    ans[1]=j;
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    ans[0] = i;
+                    ans[1] = j;
                     return ans;
                 }
             }
         }
         return ans;
+    }
+
+    /**
+     * 415
+     * https://leetcode-cn.com/problems/add-strings/
+     *
+     * @param num1
+     * @param num2
+     * @return
+     */
+    public String addStrings(String num1, String num2) {
+        StringBuilder ans = new StringBuilder();
+        int target = 0;
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        while ((target != 0) || (i >= 0) || (j >= 0)) {
+            if (i >= 0) {
+                target += num1.charAt(i--) - '0';
+            }
+            if (j >= 0) {
+                target += num2.charAt(j--) - '0';
+            }
+            ans.append(target % 10);
+            target /= 10;
+        }
+        return ans.reverse().toString();
+    }
+
+    /**
+     * 1260
+     * https://leetcode-cn.com/problems/shift-2d-grid/
+     *
+     * @param grid
+     * @param k
+     * @return
+     */
+    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[] nums = new int[m * n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                k = k % (m * n);
+                nums[k++] = grid[i][j];
+            }
+        }
+
+        k = 0;
+
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            List<Integer> list = new ArrayList<>();
+            for (int j = 0; j < m; j++) {
+                list.add(nums[k++]);
+            }
+            ans.add(list);
+        }
+        return ans;
+    }
+
+    /**
+     * 236
+     * https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if ((root == p) || (root == q)) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left != null && right != null) {
+            return root;
+        } else if (left != null) {
+            return left;
+        } else if (right != null) {
+            return right;
+        }
+        return null;
+    }
+
+    /**
+     * 925
+     * https://leetcode-cn.com/problems/long-pressed-name/
+     *
+     * @param name
+     * @param typed
+     * @return
+     */
+    public boolean isLongPressedName(String name, String typed) {
+        int i = 0;
+        int j = 0;
+        while ((i < name.length()) && (j < typed.length())) {
+            if (name.charAt(i) == typed.charAt(j)) {
+                i++;
+                j++;
+            } else if ((j > 0) && (typed.charAt(j) == typed.charAt(j - 1))) {
+                j++;
+            } else {
+                return false;
+            }
+        }
+        if (i == name.length()) {
+            while (j < typed.length() - 1) {
+                j++;
+                if (typed.charAt(j) != typed.charAt(j - 1)) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 1359
+     * https://leetcode-cn.com/problems/count-all-valid-pickup-and-delivery-options/
+     *
+     * @param n
+     * @return
+     */
+    public int countOrders(int n) {
+        long ans = 1;
+        for (int i = 2; i <= n; i++) {
+            ans = ans * i * (2 * i - 1);
+            if (ans > 1000000007) {
+                ans %= 1000000007;
+            }
+        }
+        return (int) ans;
+    }
+
+    /**
+     * 69
+     * https://leetcode-cn.com/problems/sqrtx/
+     *
+     * @param x
+     * @return
+     */
+    public int mySqrt(int x) {
+        if (x == 0) {
+            return 0;
+        }
+
+        int i = 1;
+        while ((long) i * i <= x) {
+            i++;
+        }
+        return i - 1;
+    }
+
+    /**
+     * 227
+     * https://leetcode-cn.com/problems/basic-calculator-ii/
+     * mianshiti 16.26
+     * https://leetcode-cn.com/problems/calculator-lcci/
+     *
+     * @param s
+     * @return
+     */
+    public int calculate(String s) {
+        Stack<Integer> stack = new Stack<>();
+        char opt = '+';
+        int num = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isDigit(ch)) {
+                num = num * 10 + ch - '0';
+            }
+            if ((!Character.isDigit(ch) && (ch != ' ')) || (i == s.length() - 1)) {
+                switch (opt) {
+                    case '+':
+                        stack.push(num);
+                        break;
+                    case '-':
+                        stack.push(-num);
+                        break;
+                    case '*':
+                        stack.push(stack.pop() * num);
+                        break;
+                    case '/':
+                        stack.push(stack.pop() / num);
+                }
+                opt = ch;
+                num = 0;
+            }
+        }
+
+        int ans = 0;
+        while (!stack.empty()) {
+            ans += stack.pop();
+        }
+        return ans;
+    }
+
+    /**
+     * 112
+     * https://leetcode-cn.com/problems/path-sum/
+     *
+     * @param root
+     * @param sum
+     * @return
+     */
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+
+        if ((root.right == null) && (root.left == null)) {
+            return (sum == root.val);
+        }
+
+        return hasPathSum(root.right, sum - root.val) || hasPathSum(root.left, sum - root.val);
+    }
+
+    /**
+     * 838
+     * https://leetcode-cn.com/problems/push-dominoes/
+     *
+     * @param dominoes
+     * @return
+     */
+    public String pushDominoes(String dominoes) {
+        int[] left = new int[dominoes.length()];
+        int[] right = new int[dominoes.length()];
+        int force = 0;
+        for (int i = 0; i < dominoes.length(); i++) {
+            if (force != 0) {
+                force++;
+            }
+            if (dominoes.charAt(i) == 'R') {
+                force = 1;
+            }
+            if (dominoes.charAt(i) == 'L') {
+                force = 0;
+            }
+            right[i] = force;
+        }
+        force = 0;
+        for (int i = dominoes.length() - 1; i >= 0; i--) {
+            if (force != 0) {
+                force++;
+            }
+            if (dominoes.charAt(i) == 'L') {
+                force = 1;
+            }
+            if (dominoes.charAt(i) == 'R') {
+                force = 0;
+            }
+            left[i] = force;
+        }
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < dominoes.length(); i++) {
+            if ((right[i] != 0) && (left[i] != 0)) {
+                ans.append((right[i] < left[i]) ? 'R' : ((right[i] == left[i]) ? '.' : 'L'));
+            }
+            if ((right[i] != 0) && (left[i] == 0)) {
+                ans.append('R');
+            }
+            if ((right[i] == 0) && (left[i] != 0)) {
+                ans.append('L');
+            }
+            if ((right[i] == 0) && (left[i] == 0)) {
+                ans.append('.');
+            }
+        }
+        return ans.toString();
     }
 }
