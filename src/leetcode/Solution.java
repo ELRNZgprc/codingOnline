@@ -1,15 +1,11 @@
 package leetcode;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solution {
     /**
      * Mianshiti 60
      * https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/
-     *
-     * @param n int
-     * @return a double[]
      */
     public double[] twoSum(int n) {
         double[] ans = new double[5 * n + 1];
@@ -46,9 +42,6 @@ public class Solution {
     /**
      * 394
      * https://leetcode-cn.com/problems/decode-string/
-     *
-     * @param s String
-     * @return String
      */
     public String decodeString(String s) {
         return work(s, 0, s.length());
@@ -89,8 +82,6 @@ public class Solution {
     /**
      * 37
      * https://leetcode-cn.com/problems/sudoku-solver/
-     *
-     * @param board char[][]
      */
     public void solveSudoku(char[][] board) {
         boolean[][] row = new boolean[9][9];
@@ -171,9 +162,6 @@ public class Solution {
     /**
      * 111
      * https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
-     *
-     * @param root TreeNode
-     * @return int
      */
     public int minDepth(TreeNode root) {
         if (root == null) {
@@ -192,10 +180,6 @@ public class Solution {
     /**
      * 704
      * https://leetcode-cn.com/problems/binary-search/
-     *
-     * @param nums
-     * @param target
-     * @return
      */
     public int search704(int[] nums, int target) {
         int i = 0;
@@ -225,10 +209,6 @@ public class Solution {
     /**
      * 2
      * https://leetcode-cn.com/problems/binary-search/
-     *
-     * @param l1
-     * @param l2
-     * @return
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode root = new ListNode(0);
@@ -254,9 +234,6 @@ public class Solution {
     /**
      * 3
      * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
-     *
-     * @param s
-     * @return
      */
     public int lengthOfLongestSubstring(String s) {
         int ans = 0;
@@ -277,9 +254,6 @@ public class Solution {
     /**
      * 198
      * https://leetcode-cn.com/problems/house-robber/comments/
-     *
-     * @param nums
-     * @return
      */
     public int rob(int[] nums) {
         int length = nums.length;
@@ -304,9 +278,6 @@ public class Solution {
     /**
      * mianshiti 08.11
      * https://leetcode-cn.com/problems/coin-lcci/
-     *
-     * @param n
-     * @return
      */
     public int waysToChange(int n) {
         int[] memory = new int[n + 1];
@@ -326,10 +297,6 @@ public class Solution {
     /**
      * 974
      * https://leetcode-cn.com/problems/subarray-sums-divisible-by-k/
-     *
-     * @param A
-     * @param K
-     * @return
      */
     public int subarraysDivByK(int[] A, int K) {
         int[] hash = new int[K];
@@ -353,10 +320,6 @@ public class Solution {
     /**
      * mainshiti58
      * https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
-     *
-     * @param s
-     * @param n
-     * @return
      */
     public String reverseLeftWords(String s, int n) {
         return s.substring(n) + s.substring(0, n);
@@ -365,9 +328,6 @@ public class Solution {
     /**
      * 84
      * https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
-     *
-     * @param heights
-     * @return
      */
     public int largestRectangleArea(int[] heights) {
         if (heights.length > 0) {
@@ -394,9 +354,6 @@ public class Solution {
     /**
      * 14
      * https://leetcode-cn.com/problems/longest-common-prefix/
-     *
-     * @param strs
-     * @return
      */
     public String longestCommonPrefix(String[] strs) {
         if (strs.length > 0) {
@@ -438,9 +395,6 @@ public class Solution {
     /**
      * 1108
      * https://leetcode-cn.com/problems/defanging-an-ip-address/
-     *
-     * @param address
-     * @return
      */
     public String defangIPaddr(String address) {
         return address.replace(".", "[.]");
@@ -449,10 +403,6 @@ public class Solution {
     /**
      * 1431
      * https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/
-     *
-     * @param candies      int[]
-     * @param extraCandies int
-     * @return
      */
     public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
         List<Boolean> ans = new ArrayList<>();
@@ -474,9 +424,6 @@ public class Solution {
     /**
      * 56
      * https://leetcode-cn.com/problems/merge-intervals/
-     *
-     * @param intervals
-     * @return
      */
     public int[][] merge(int[][] intervals) {
         if (intervals == null || intervals.length < 2) {
@@ -502,11 +449,6 @@ public class Solution {
     /**
      * 235
      * https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-     *
-     * @param root
-     * @param p
-     * @param q
-     * @return
      */
     public TreeNode lowestCommonAncestor235(TreeNode root, TreeNode p, TreeNode q) {
         if ((p.val - root.val) * (q.val - root.val) <= 0) {
@@ -522,10 +464,6 @@ public class Solution {
     /**
      * 19
      * https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
-     *
-     * @param head
-     * @param n
-     * @return
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if ((head == null) || (head.next == null)) {
@@ -550,9 +488,6 @@ public class Solution {
     /**
      * 11
      * https://leetcode-cn.com/problems/container-with-most-water/
-     *
-     * @param height
-     * @return
      */
     public int maxArea(int[] height) {
         int i = 0;
@@ -578,12 +513,6 @@ public class Solution {
     /**
      * 22
      * https://leetcode-cn.com/problems/generate-parentheses/
-     *
-     * @param ans
-     * @param str
-     * @param left
-     * @param right
-     * @param n
      */
     public void generate(List<String> ans, String str, int left, int right, int n) {
         if ((left == n) && (right == n)) {
@@ -601,9 +530,6 @@ public class Solution {
     /**
      * 45
      * https://leetcode-cn.com/problems/jump-game-ii/
-     *
-     * @param nums
-     * @return
      */
     public int jump(int[] nums) {
         int[] record = new int[nums.length];
@@ -629,9 +555,6 @@ public class Solution {
     /**
      * 1346
      * https://leetcode-cn.com/problems/check-if-n-and-its-double-exist/
-     *
-     * @param arr
-     * @return
      */
     public boolean checkIfExist(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
@@ -647,9 +570,6 @@ public class Solution {
     /**
      * 921
      * https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/
-     *
-     * @param S
-     * @return
      */
     public int minAddToMakeValid(String S) {
         int left = 0;
@@ -672,11 +592,6 @@ public class Solution {
     /**
      * 837
      * https://leetcode-cn.com/problems/new-21-game/
-     *
-     * @param N
-     * @param K
-     * @param W
-     * @return
      */
     public double new21Game(int N, int K, int W) {
         double[] dp = new double[K + W];
@@ -707,9 +622,6 @@ public class Solution {
     /**
      * 238
      * https://leetcode-cn.com/problems/product-of-array-except-self/
-     *
-     * @param nums
-     * @return
      */
     public int[] productExceptSelf(int[] nums) {
         int length = nums.length;
@@ -733,9 +645,6 @@ public class Solution {
     /**
      * 929
      * https://leetcode-cn.com/problems/unique-email-addresses/
-     *
-     * @param emails
-     * @return
      */
     public int numUniqueEmails(String[] emails) {
         if (emails.length < 1) return 0;
@@ -755,9 +664,6 @@ public class Solution {
     /**
      * 15
      * https://leetcode-cn.com/problems/3sum/
-     *
-     * @param nums
-     * @return
      */
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
@@ -793,9 +699,6 @@ public class Solution {
     /**
      * 9
      * https://leetcode-cn.com/problems/palindrome-number/
-     *
-     * @param x
-     * @return
      */
     public boolean isPalindrome(int x) {
         if (x < 0) return false;
@@ -813,9 +716,6 @@ public class Solution {
     /**
      * 739
      * https://leetcode-cn.com/problems/daily-temperatures/
-     *
-     * @param T
-     * @return
      */
     public int[] dailyTemperatures(int[] T) {
         Stack<Integer> z = new Stack<>();
@@ -840,9 +740,6 @@ public class Solution {
     /**
      * 1014
      * https://leetcode-cn.com/problems/best-sightseeing-pair/
-     *
-     * @param A
-     * @return
      */
     public int maxScoreSightseeingPair(int[] A) {
         int ans = -1;
@@ -862,9 +759,6 @@ public class Solution {
     /**
      * 1221
      * https://leetcode-cn.com/problems/split-a-string-in-balanced-strings/
-     *
-     * @param s
-     * @return
      */
     public int balancedStringSplit(String s) {
         int ans = 0;
@@ -886,9 +780,6 @@ public class Solution {
     /**
      * 319
      * https://leetcode-cn.com/problems/bulb-switcher/
-     *
-     * @param n
-     * @return
      */
     public int bulbSwitch(int n) {
         return (int) Math.sqrt(n);
@@ -897,9 +788,6 @@ public class Solution {
     /**
      * 125
      * https://leetcode-cn.com/problems/valid-palindrome/
-     *
-     * @param s
-     * @return
      */
     public boolean isPalindrome(String s) {
         if (s.equals("")) return true;
@@ -916,10 +804,6 @@ public class Solution {
     /**
      * 167
      * https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/
-     *
-     * @param numbers
-     * @param target
-     * @return
      */
     public int[] twoSum167(int[] numbers, int target) {
         int[] ans = new int[2];
@@ -941,10 +825,6 @@ public class Solution {
     /**
      * 209
      * https://leetcode-cn.com/problems/minimum-size-subarray-sum/
-     *
-     * @param s
-     * @param nums
-     * @return
      */
     public int minSubArrayLen(int s, int[] nums) {
         int i = -1;
@@ -970,9 +850,6 @@ public class Solution {
     /**
      * 1013
      * https://leetcode-cn.com/problems/partition-array-into-three-parts-with-equal-sum/
-     *
-     * @param A
-     * @return
      */
     public boolean canThreePartsEqualSum(int[] A) {
         int sum = 0;
@@ -998,9 +875,6 @@ public class Solution {
     /**
      * 1339
      * https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/
-     *
-     * @param root
-     * @return
      */
     public int maxProduct(TreeNode root) {
         int sum = getSum(root);
@@ -1037,9 +911,6 @@ public class Solution {
     /**
      * 64
      * https://leetcode-cn.com/problems/minimum-path-sum/
-     *
-     * @param grid
-     * @return
      */
     public int minPathSum(int[][] grid) {
         if (grid == null || grid.length < 1 || grid[0] == null || grid[0].length < 1) {
@@ -1072,9 +943,6 @@ public class Solution {
     /**
      * 565
      * https://leetcode-cn.com/problems/array-nesting/
-     *
-     * @param nums
-     * @return
      */
     public int arrayNesting(int[] nums) {
         int length = nums.length;
@@ -1102,9 +970,6 @@ public class Solution {
     /**
      * 915
      * https://leetcode-cn.com/problems/partition-array-into-disjoint-intervals/
-     *
-     * @param A
-     * @return
      */
     public int partitionDisjoint(int[] A) {
         if (A == null || A.length == 0) {
@@ -1136,10 +1001,6 @@ public class Solution {
     /**
      * mianshiti 01.09
      * https://leetcode-cn.com/problems/string-rotation-lcci/
-     *
-     * @param s1
-     * @param s2
-     * @return
      */
     public boolean isFlipedString(String s1, String s2) {
         if (s1.length() != s2.length()) return false;
@@ -1150,9 +1011,6 @@ public class Solution {
     /**
      * 1046
      * https://leetcode-cn.com/problems/last-stone-weight/
-     *
-     * @param stones
-     * @return
      */
     public int lastStoneWeight(int[] stones) {
         Arrays.sort(stones);
@@ -1168,12 +1026,6 @@ public class Solution {
     /**
      * 593
      * https://leetcode-cn.com/problems/valid-square/
-     *
-     * @param p1
-     * @param p2
-     * @param p3
-     * @param p4
-     * @return
      */
     public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
         return isStraight(p1, p2, p3) && isStraight(p1, p2, p4) && isStraight(p1, p3, p4) && isStraight(p3, p2, p4);
@@ -1190,9 +1042,6 @@ public class Solution {
     /**
      * 343
      * https://leetcode-cn.com/problems/integer-break/
-     *
-     * @param n
-     * @return
      */
     public int integerBreak(int n) {
         if (n == 2) return 1;
@@ -1213,9 +1062,6 @@ public class Solution {
     /**
      * 335
      * https://leetcode-cn.com/problems/self-crossing/
-     *
-     * @param x
-     * @return
      */
     public boolean isSelfCrossing(int[] x) {
         if (x.length < 4) return false;
@@ -1237,9 +1083,6 @@ public class Solution {
     /**
      * 1338
      * https://leetcode-cn.com/problems/reduce-array-size-to-the-half/
-     *
-     * @param arr
-     * @return
      */
     public int minSetSize(int[] arr) {
         Arrays.sort(arr);
@@ -1272,9 +1115,6 @@ public class Solution {
     /**
      * 679
      * https://leetcode-cn.com/problems/24-game/
-     *
-     * @param nums
-     * @return
      */
     public boolean judgePoint24(int[] nums) {
         double a = nums[0];
@@ -1352,9 +1192,6 @@ public class Solution {
     /**
      * mianshiti 08.03
      * https://leetcode-cn.com/problems/magic-index-lcci/
-     *
-     * @param nums
-     * @return
      */
     public int findMagicIndex(int[] nums) {
         for (int i = 0; i < nums.length; ) {
@@ -1368,9 +1205,6 @@ public class Solution {
     /**
      * 98
      * https://leetcode-cn.com/problems/validate-binary-search-tree/
-     *
-     * @param root
-     * @return
      */
     public boolean isValidBST(TreeNode root) {
         return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
@@ -1390,10 +1224,6 @@ public class Solution {
     /**
      * 61
      * https://leetcode-cn.com/problems/rotate-list/
-     *
-     * @param head
-     * @param k
-     * @return
      */
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null) {
@@ -1430,10 +1260,6 @@ public class Solution {
     /**
      * 81
      * https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/
-     *
-     * @param nums
-     * @param target
-     * @return
      */
     public boolean search81(int[] nums, int target) {
         if (nums.length == 0) {
@@ -1474,9 +1300,6 @@ public class Solution {
     /**
      * 1375
      * https://leetcode-cn.com/problems/bulb-switcher-iii/
-     *
-     * @param light
-     * @return
      */
     public int numTimesAllBlue(int[] light) {
         int ans = 0;
@@ -1493,8 +1316,6 @@ public class Solution {
     /**
      * mianshiti 01.07
      * https://leetcode-cn.com/problems/rotate-matrix-lcci/
-     *
-     * @param matrix
      */
     public void rotate(int[][] matrix) {
         int length = matrix.length;
@@ -1516,9 +1337,6 @@ public class Solution {
     /**
      * 397
      * https://leetcode-cn.com/problems/integer-replacement/
-     *
-     * @param n
-     * @return
      */
     public int integerReplacement(int n) {
         long ln = n;
@@ -1539,9 +1357,6 @@ public class Solution {
     /**
      * 1475
      * https://leetcode-cn.com/problems/final-prices-with-a-special-discount-in-a-shop/
-     *
-     * @param prices
-     * @return
      */
     public int[] finalPrices(int[] prices) {
         int[] ans = new int[prices.length];
@@ -1564,9 +1379,6 @@ public class Solution {
     /**
      * 1480
      * https://leetcode-cn.com/problems/running-sum-of-1d-array/
-     *
-     * @param nums
-     * @return
      */
     public int[] runningSum(int[] nums) {
         for (int i = 1; i < nums.length; ++i) {
@@ -1578,9 +1390,6 @@ public class Solution {
     /**
      * 258
      * https://leetcode-cn.com/problems/add-digits/
-     *
-     * @param num
-     * @return
      */
     public int addDigits(int num) {
         return (num - 1) % 9 + 1;
@@ -1589,9 +1398,6 @@ public class Solution {
     /**
      * 594
      * https://leetcode-cn.com/problems/longest-harmonious-subsequence/
-     *
-     * @param nums
-     * @return
      */
     public int findLHS(int[] nums) {
         if (nums.length == 0) return 0;
@@ -1620,9 +1426,6 @@ public class Solution {
     /**
      * 860
      * https://leetcode-cn.com/problems/lemonade-change/
-     *
-     * @param bills
-     * @return
      */
     public boolean lemonadeChange(int[] bills) {
         int five = 0;
@@ -1658,9 +1461,6 @@ public class Solution {
     /**
      * 414
      * https://leetcode-cn.com/problems/third-maximum-number/
-     *
-     * @param nums
-     * @return
      */
     public int thirdMax(int[] nums) {
         int a = Integer.MIN_VALUE;
@@ -1702,9 +1502,6 @@ public class Solution {
     /**
      * 693
      * https://leetcode-cn.com/problems/binary-number-with-alternating-bits/
-     *
-     * @param n
-     * @return
      */
     public boolean hasAlternatingBits(int n) {
         int last = n % 2;
@@ -1791,10 +1588,6 @@ public class Solution {
     /**
      * 4
      * https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
-     *
-     * @param nums1
-     * @param nums2
-     * @return
      */
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int[] nums = new int[nums1.length + nums2.length];
@@ -1817,11 +1610,6 @@ public class Solution {
     /**
      * 88
      * https://leetcode-cn.com/problems/merge-sorted-array/
-     *
-     * @param nums1
-     * @param m
-     * @param nums2
-     * @param n
      */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int[] nums = new int[m + n];
@@ -1847,8 +1635,6 @@ public class Solution {
     /**
      * 114
      * https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
-     *
-     * @param root
      */
     public void flatten(TreeNode root) {
         if (root == null) {
@@ -1868,9 +1654,6 @@ public class Solution {
     /**
      * 70
      * https://leetcode-cn.com/problems/climbing-stairs/
-     *
-     * @param n
-     * @return
      */
     public int climbStairs(int n) {
         int[] ans = new int[n + 1];
@@ -1885,10 +1668,6 @@ public class Solution {
     /**
      * 207
      * https://leetcode-cn.com/problems/course-schedule/
-     *
-     * @param numCourses
-     * @param prerequisites
-     * @return
      */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] counts = new int[numCourses];
@@ -1923,10 +1702,6 @@ public class Solution {
     /**
      * 951
      * https://leetcode-cn.com/problems/flip-equivalent-binary-trees/
-     *
-     * @param root1
-     * @param root2
-     * @return
      */
     public boolean flipEquiv(TreeNode root1, TreeNode root2) {
         if ((root1 == null) && (root2 == null)) {
@@ -1944,10 +1719,6 @@ public class Solution {
     /**
      * 744
      * https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/
-     *
-     * @param letters
-     * @param target
-     * @return
      */
     public char nextGreatestLetter(char[] letters, char target) {
         if (target >= letters[letters.length - 1]) {
@@ -1963,9 +1734,6 @@ public class Solution {
     /**
      * 1526
      * https://leetcode-cn.com/problems/minimum-number-of-increments-on-subarrays-to-form-a-target-array/
-     *
-     * @param target
-     * @return
      */
     public int minNumberOperations(int[] target) {
         int ans = target[0];
@@ -1980,9 +1748,6 @@ public class Solution {
     /**
      * 228
      * https://leetcode-cn.com/problems/summary-ranges/
-     *
-     * @param nums
-     * @return
      */
     public List<String> summaryRanges(int[] nums) {
         List<String> list = new ArrayList<>();
@@ -2005,8 +1770,6 @@ public class Solution {
     /**
      * mianshiti 01.08
      * https://leetcode-cn.com/problems/zero-matrix-lcci/
-     *
-     * @param matrix
      */
     public void setZeroes(int[][] matrix) {
         boolean[] m = new boolean[matrix.length];
@@ -2047,10 +1810,6 @@ public class Solution {
     /**
      * 1
      * https://leetcode-cn.com/problems/two-sum/
-     *
-     * @param nums
-     * @param target
-     * @return
      */
     public int[] twoSum1(int[] nums, int target) {
         int[] ans = new int[2];
@@ -2069,10 +1828,6 @@ public class Solution {
     /**
      * 415
      * https://leetcode-cn.com/problems/add-strings/
-     *
-     * @param num1
-     * @param num2
-     * @return
      */
     public String addStrings(String num1, String num2) {
         StringBuilder ans = new StringBuilder();
@@ -2095,10 +1850,6 @@ public class Solution {
     /**
      * 1260
      * https://leetcode-cn.com/problems/shift-2d-grid/
-     *
-     * @param grid
-     * @param k
-     * @return
      */
     public List<List<Integer>> shiftGrid(int[][] grid, int k) {
         int n = grid.length;
@@ -2128,11 +1879,6 @@ public class Solution {
     /**
      * 236
      * https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
-     *
-     * @param root
-     * @param p
-     * @param q
-     * @return
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
@@ -2158,10 +1904,6 @@ public class Solution {
     /**
      * 925
      * https://leetcode-cn.com/problems/long-pressed-name/
-     *
-     * @param name
-     * @param typed
-     * @return
      */
     public boolean isLongPressedName(String name, String typed) {
         int i = 0;
@@ -2192,9 +1934,6 @@ public class Solution {
     /**
      * 1359
      * https://leetcode-cn.com/problems/count-all-valid-pickup-and-delivery-options/
-     *
-     * @param n
-     * @return
      */
     public int countOrders(int n) {
         long ans = 1;
@@ -2210,9 +1949,6 @@ public class Solution {
     /**
      * 69
      * https://leetcode-cn.com/problems/sqrtx/
-     *
-     * @param x
-     * @return
      */
     public int mySqrt(int x) {
         if (x == 0) {
@@ -2229,11 +1965,9 @@ public class Solution {
     /**
      * 227
      * https://leetcode-cn.com/problems/basic-calculator-ii/
+     * <p>
      * mianshiti 16.26
      * https://leetcode-cn.com/problems/calculator-lcci/
-     *
-     * @param s
-     * @return
      */
     public int calculate(String s) {
         Stack<Integer> stack = new Stack<>();
@@ -2274,10 +2008,6 @@ public class Solution {
     /**
      * 112
      * https://leetcode-cn.com/problems/path-sum/
-     *
-     * @param root
-     * @param sum
-     * @return
      */
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) {
@@ -2294,9 +2024,6 @@ public class Solution {
     /**
      * 838
      * https://leetcode-cn.com/problems/push-dominoes/
-     *
-     * @param dominoes
-     * @return
      */
     public String pushDominoes(String dominoes) {
         int[] left = new int[dominoes.length()];
@@ -2344,4 +2071,228 @@ public class Solution {
         }
         return ans.toString();
     }
+
+    /**
+     * 121
+     * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
+     */
+    public int maxProfit1(int[] prices) {
+        if (prices.length <= 1) {
+            return 0;
+        }
+        int min = prices[0];
+        int ans = 0;
+        for (int i = 1; i < prices.length; i++) {
+            ans = Math.max(ans, prices[i] - min);
+            min = Math.min(min, prices[i]);
+        }
+        return ans;
+    }
+
+    /**
+     * 122
+     * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/
+     */
+    public int maxProfit2(int[] prices) {
+        if (prices.length <= 1) {
+            return 0;
+        }
+        int ans = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                ans += prices[i] - prices[i - 1];
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 210
+     * https://leetcode-cn.com/problems/course-schedule-ii/
+     */
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] counts = new int[numCourses];
+        Queue<Integer> safety = new LinkedList<>();
+        Queue<Integer> record = new LinkedList<>();
+        for (int[] i : prerequisites) {
+            counts[i[0]]++;
+        }
+        for (int i = 0; i < counts.length; i++) {
+            if (counts[i] == 0) {
+                safety.offer(i);
+            }
+        }
+
+        while (safety.size() != 0) {
+            int poll = safety.poll();
+            record.offer(poll);
+            for (int[] i : prerequisites) {
+                if (i[1] == poll) {
+                    counts[i[0]]--;
+                    if (counts[i[0]] == 0) {
+                        safety.offer(i[0]);
+                    }
+                }
+            }
+        }
+
+        if (record.size() == numCourses) {
+            int[] ans = new int[numCourses];
+            for (int i = 0; i < numCourses; i++) {
+                ans[i] = record.poll();
+            }
+            return ans;
+        } else {
+            return new int[0];
+        }
+    }
+
+    /**
+     * mianshiti 08.04
+     * https://leetcode-cn.com/problems/power-set-lcci/
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        work0804(nums, 0, list, ans);
+        return ans;
+    }
+
+    void work0804(int[] nums, int i, List<Integer> list, List<List<Integer>> ans) {
+        if (i == nums.length) {
+            ans.add(new ArrayList<>(list));
+        }
+        if (i < nums.length) {
+            work0804(nums, i + 1, new ArrayList<>(list), ans);
+            list.add(nums[i]);
+            work0804(nums, i + 1, new ArrayList<>(list), ans);
+        }
+    }
+
+    /**
+     * 32
+     * https://ldeetcode-cn.com/problems/longest-valid-parentheses/
+     */
+    public int longestValidParentheses(String s) {
+        Stack<Integer> stack = new Stack<>();
+        int[] mark = new int[s.length()];
+        int len = 0;
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                if (stack.empty()) {
+                    mark[i] = 1;
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+        while (!stack.empty()) {
+            mark[stack.pop()] = 1;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (mark[i] == 1) {
+                len = 0;
+            } else {
+                len++;
+                ans = Math.max(ans, len);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1262
+     * https://leetcode-cn.com/problems/greatest-sum-divisible-by-three/comments/
+     */
+    public int maxSumDivThree(int[] nums) {
+        int[] dp = new int[3];
+        for (int i : nums) {
+            int[] dp0 = new int[3];
+            for (int j = 0; j < 3; j++) {
+                dp0[j] = dp[j];
+            }
+            for (int j : dp0) {
+                switch ((j + i) % 3) {
+                    case 0:
+                        dp[0] = Math.max(dp[0], i + j);
+                        break;
+                    case 1:
+                        dp[1] = Math.max(dp[1], i + j);
+                        break;
+                    case 2:
+                        dp[2] = Math.max(dp[2], i + j);
+                        break;
+                }
+            }
+        }
+        return dp[0];
+    }
+
+    /**
+     * 59
+     * https://leetcode-cn.com/problems/spiral-matrix-ii/
+     */
+    public int[][] generateMatrix(int n) {
+        int[][] ans = new int[n][n];
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int dir = 0;
+        int x = 0;
+        int y = 0;
+        for (int i = 1; i < n * n; i++) {
+            ans[x][y] = i;
+            while (!((x + directions[dir][0] < n) && (x + directions[dir][0] >= 0) && (y + directions[dir][1] < n) && (y + directions[dir][1] >= 0) && (ans[x + directions[dir][0]][y + directions[dir][1]] == 0))) {
+                dir = (dir + 1) % 4;
+            }
+            x += directions[dir][0];
+            y += directions[dir][1];
+        }
+        ans[x][y] = n * n;
+        return ans;
+    }
+
+    /**
+     * 1496
+     * https://leetcode-cn.com/problems/path-crossing/
+     */
+    public boolean isPathCrossing(String path) {
+        if (path.contains("NS") || path.contains("SN") || path.contains("WE") || path.contains("EW")) {
+            return true;
+        }
+        int n = 0;
+        int s = 0;
+        int w = 0;
+        int e = 0;
+        for (int i = 0; i < path.length(); i++) {
+            switch (path.charAt(i)) {
+                case 'N':
+                    n++;
+                    break;
+                case 'S':
+                    s++;
+                    break;
+                case 'W':
+                    w++;
+                    break;
+                case 'E':
+                    e++;
+                    break;
+            }
+            if ((n == s) && (w == e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 1025
+     * https://leetcode-cn.com/problems/divisor-game/
+     */
+    public boolean divisorGame(int N) {
+        return (N % 2 == 0);
+    }
 }
+
