@@ -2294,5 +2294,45 @@ public class Solution {
     public boolean divisorGame(int N) {
         return (N % 2 == 0);
     }
+
+    /**
+     * 7
+     * https://leetcode-cn.com/problems/reverse-integer/
+     */
+    public int reverse(int x) {
+        int max = 0x7fffffff, min = 0x80000000;
+        long rs = 0;
+        for (; x != 0; rs = rs * 10 + x % 10, x /= 10) ;
+        return ((rs > max) || (rs < min)) ? 0 : (int) rs;
+    }
+
+    /**
+     * mianshiti 08.05
+     * https://leetcode-cn.com/problems/recursive-mulitply-lcci/
+     */
+    public int multiply(int A, int B) {
+        if (B == 0) {
+            return 0;
+        }
+        return A+multiply(A,B-1);
+    }
+
+    /**
+     * 1460
+     * https://leetcode-cn.com/problems/make-two-arrays-equal-by-reversing-sub-arrays/
+     */
+    public boolean canBeEqual(int[] target, int[] arr) {
+        if (target.length!=arr.length){
+            return false;
+        }
+        Arrays.sort(target);
+        Arrays.sort(arr);
+        for (int i = 0 ;i<target.length;i++){
+            if (target[i]!=arr[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
