@@ -2314,7 +2314,7 @@ public class Solution {
         if (B == 0) {
             return 0;
         }
-        return A+multiply(A,B-1);
+        return A + multiply(A, B - 1);
     }
 
     /**
@@ -2322,17 +2322,377 @@ public class Solution {
      * https://leetcode-cn.com/problems/make-two-arrays-equal-by-reversing-sub-arrays/
      */
     public boolean canBeEqual(int[] target, int[] arr) {
-        if (target.length!=arr.length){
+        if (target.length != arr.length) {
             return false;
         }
         Arrays.sort(target);
         Arrays.sort(arr);
-        for (int i = 0 ;i<target.length;i++){
-            if (target[i]!=arr[i]){
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != arr[i]) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * 179
+     * https://leetcode-cn.com/problems/largest-number/
+     */
+    public String largestNumber(int[] nums) {
+        if (nums.length < 1) {
+            return "";
+        }
+        String[] str = new String[nums.length];
+        for (int i = 0; i < str.length; i++) {
+            str[i] = String.valueOf(nums[i]);
+        }
+
+        Arrays.sort(str, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+
+        StringBuilder ans = new StringBuilder();
+
+        for (String s : str) {
+            ans.append(s);
+        }
+
+        String result = ans.toString();
+
+        if (result.charAt(0) == '0') {
+            return "0";
+        }
+
+        return result;
+    }
+
+    /**
+     * 337
+     * https://leetcode-cn.com/problems/house-robber-iii/
+     */
+    public int rob(TreeNode root) {
+        return Math.max(work337(root, false), work337(root, true));
+    }
+
+    int work337(TreeNode root, boolean flag) {
+        if (root == null) {
+            return 0;
+        }
+        if (flag) {
+            return work337(root.left, false) + work337(root.right, false) + root.val;
+        }
+        return Math.max(work337(root.left, false), work337(root.left, true)) + Math.max(work337(root.right, false), work337(root.right, true));
+    }
+
+    /**
+     * 213
+     * https://leetcode-cn.com/problems/house-robber-ii/
+     */
+    public int rob2(int[] nums) {
+        int length = nums.length;
+        if (length == 0) {
+            return 0;
+        } else if (length == 1) {
+            return nums[0];
+        }
+
+        int[] memory = new int[length];
+
+        memory[0] = 0;
+        memory[1] = nums[1];
+
+        for (int i = 2; i < length; i++) {
+            memory[i] = Math.max(memory[i - 2] + nums[i], memory[i - 1]);
+        }
+
+        int ans = memory[length - 1];
+
+        memory[length - 1] = 0;
+        memory[length - 2] = nums[length - 2];
+
+        for (int j = length - 3; j > -1; j--) {
+            memory[j] = Math.max(memory[j + 2] + nums[j], memory[j + 1]);
+        }
+
+        return Math.max(ans, memory[0]);
+    }
+
+    /**
+     * 96
+     * https://leetcode-cn.com/problems/unique-binary-search-trees/
+     */
+    public int numTrees(int n) {
+        if (n <= 1) {
+            return 1;
+        }
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                dp[i] += dp[j] * dp[i - j - 1];
+            }
+        }
+        return dp[n];
+    }
+
+    /**
+     * 1464
+     * https://leetcode-cn.com/problems/maximum-product-of-two-elements-in-an-array/
+     */
+    public int maxProduct(int[] nums) {
+        Arrays.sort(nums);
+        return (nums[nums.length - 1] - 1) * (nums[nums.length - 2] - 1);
+    }
+
+    /**
+     * 1470
+     * https://leetcode-cn.com/problems/shuffle-the-array/
+     */
+    public int[] shuffle(int[] nums, int n) {
+        int[] ans = new int[2 * n];
+
+        for (int i = 0; i < 2 * n; i++) {
+            if (i % 2 == 0) {
+                ans[i] = nums[i / 2];
+            } else {
+                ans[i] = nums[n + i / 2];
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 867
+     * https://leetcode-cn.com/problems/transpose-matrix/
+     */
+    public int[][] transpose(int[][] A) {
+        int[][] ans = new int[A[0].length][A.length];
+        for (int i = 0; i < A.length; i++)
+            for (int j = 0; j < A[0].length; j++)
+                ans[j][i] = A[i][j];
+        return ans;
+    }
+
+    /**
+     * 27
+     * https://leetcode-cn.com/problems/remove-element/
+     */
+    public int removeElement(int[] nums, int val) {
+        if (nums.length < 1) {
+            return 0;
+        }
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[ans++] = nums[i];
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1161
+     * https://leetcode-cn.com/problems/maximum-level-sum-of-a-binary-tree/
+     */
+    public int maxLevelSum(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        work1161(root, 1, list);
+        int ans = 0;
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) > list.get(ans)) {
+                ans = i;
+            }
+        }
+        return ans + 1;
+    }
+
+    void work1161(TreeNode root, int n, List<Integer> list) {
+        if (root != null) {
+            if (list.size() < n) {
+                int a = 0;
+                list.add(a);
+            }
+            list.set(n - 1, list.get(n - 1) + root.val);
+            work1161(root.left, n + 1, list);
+            work1161(root.right, n + 1, list);
+        }
+    }
+
+    /**
+     * 1165
+     * https://leetcode-cn.com/problems/single-row-keyboard/
+     */
+    public int calculateTime(String keyboard, String word) {
+        int[] position = new int[26];
+        for (int i = 0; i < keyboard.length(); i++) {
+            position[keyboard.charAt(i) - 'a'] = i;
+        }
+        int now = 0;
+        int ans = 0;
+        for (int i = 0; i < word.length(); i++) {
+            ans += Math.abs(position[word.charAt(i) - 'a'] - now);
+            now = position[word.charAt(i) - 'a'];
+        }
+        return ans;
+    }
+
+    public String removeDuplicates(String S) {
+        if (S.length() <= 1) {
+            return S;
+        }
+        boolean[] flag = new boolean[S.length()];
+        for (int i = 0; i < S.length(); i++) {
+            flag[i] = true;
+        }
+        for (int i = 0; i < S.length() - 1; i++) {
+            if (flag[i]) {
+                int j = i + 1;
+                while (j < S.length() && !flag[j]) {
+                    j++;
+                }
+                if (j < S.length() && (S.charAt(i) == S.charAt(j))) {
+                    flag[i] = false;
+                    flag[j] = false;
+                    i = -1;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            if (flag[i]) {
+                sb.append(S.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 651
+     * https://leetcode-cn.com/problems/4-keys-keyboard/
+     */
+    public int maxA(int N) {
+        if (N <= 3) {
+            return N;
+        }
+        int[] dp = new int[N + 1];
+        int cache = 0;
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        for (int i = 4; i <= N; i++) {
+            dp[i] = dp[i - 1] + 1;
+            for (int j = 0; j < i - 2; j++) {
+                dp[i] = Math.max(dp[i], dp[j] * (i - j - 1));
+            }
+        }
+        return dp[N];
+    }
+
+    /**
+     * 289
+     * https://leetcode-cn.com/problems/game-of-life/
+     */
+    public void gameOfLife(int[][] board) {
+        int[][] directions = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+        int n = board.length;
+        int m = board[0].length;
+        int[][] partner = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                for (int k = 0; k < 8; k++) {
+                    if ((i + directions[k][0] >= 0) && (i + directions[k][0] < n) && (j + directions[k][1] >= 0) && (j + directions[k][1] < m)) {
+                        partner[i][j] += board[i + directions[k][0]][j + directions[k][1]];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == 0) {
+                    if (partner[i][j] == 3) {
+                        board[i][j] = 1;
+                    }
+                } else {
+                    if ((partner[i][j] < 2) || (partner[i][j] > 3)) {
+                        board[i][j] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 696
+     * https://leetcode-cn.com/problems/count-binary-substrings/
+     */
+    public int countBinarySubstrings(String s) {
+        int ans = 0;
+        int[] num = {0, 0};
+        num[s.charAt(0) - '0']++;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i - 1) == s.charAt(i)) {
+                num[s.charAt(i) - '0']++;
+            } else {
+                ans += Math.min(num[0], num[1]);
+                num[s.charAt(i) - '0'] = 1;
+            }
+            if (i == s.length() - 1) {
+                ans += Math.min(num[0], num[1]);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * offer 34
+     * https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
+     */
+    List<List<Integer>> ans34 = new ArrayList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<Integer> list = new ArrayList<>();
+        if (root != null) {
+            work34(root, list, sum, 0);
+        }
+        return ans34;
+    }
+
+    void work34(TreeNode root, List<Integer> list, int sum, int i) {
+        if ((root.right == null) && (root.left == null) && (root.val == sum)) {
+            list.add(root.val);
+            ans34.add(new ArrayList<>(list));
+            list.remove(i);
+        } else {
+            list.add(root.val);
+            if (root.left != null) {
+                work34(root.left, list, sum - root.val, i + 1);
+            }
+            if (root.right != null) {
+                work34(root.right, list, sum - root.val, i + 1);
+            }
+            list.remove(i);
+        }
+    }
+
+    /**
+     * 1545
+     * https://leetcode-cn.com/problems/find-kth-bit-in-nth-binary-string/
+     */
+    public char findKthBit(int n, int k) {
+        if (n == 1) {
+            return '0';
+        }
+        int mid = (1 << (n - 1));
+        if (k == mid) {
+            return '1';
+        }
+        if (k < mid) {
+            return findKthBit(n - 1, k);
+        }
+        return findKthBit(n - 1, mid * 2 - k) == '0' ? '1' : '0';
     }
 }
 
