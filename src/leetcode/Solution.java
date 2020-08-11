@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solution {
@@ -2536,6 +2537,10 @@ public class Solution {
         return ans;
     }
 
+    /**
+     * 1047
+     * https://leetcode-cn.com/problems/remove-all-adjacent-duplicates-in-string/
+     */
     public String removeDuplicates(String S) {
         if (S.length() <= 1) {
             return S;
@@ -2575,7 +2580,6 @@ public class Solution {
             return N;
         }
         int[] dp = new int[N + 1];
-        int cache = 0;
         dp[0] = 0;
         dp[1] = 1;
         dp[2] = 2;
@@ -2694,5 +2698,454 @@ public class Solution {
         }
         return findKthBit(n - 1, mid * 2 - k) == '0' ? '1' : '0';
     }
-}
 
+    /**
+     * 130
+     * https://leetcode-cn.com/problems/surrounded-regions/
+     */
+    public void solve(char[][] board) {
+        int n = board.length;
+        if (n <= 2) {
+            return;
+        }
+        int m = board[0].length;
+        if (m <= 2) {
+            return;
+        }
+
+        int[][] dest = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        int[][] target = new int[n][m];
+
+        Queue<int[]> queue = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (board[i][0] == 'O') {
+                int[] node = {i, 0};
+                target[i][0] = 1;
+                queue.add(node);
+            }
+            if (board[i][m - 1] == 'O') {
+                int[] node = {i, m - 1};
+                target[i][m - 1] = 1;
+                queue.add(node);
+            }
+        }
+        for (int j = 1; j < m - 1; j++) {
+            if (board[0][j] == 'O') {
+                int[] node = {0, j};
+                target[0][j] = 1;
+                queue.add(node);
+            }
+            if (board[n - 1][j] == 'O') {
+                int[] node = {n - 1, j};
+                target[n - 1][j] = 1;
+                queue.add(node);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int[] node1 = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int x = node1[0] + dest[i][0];
+                int y = node1[1] + dest[i][1];
+                if ((x > -1) && (x < n) && (y > -1) && (y < m)) {
+                    if ((board[x][y] == 'O') && (target[x][y] != 1)) {
+                        int[] node = {x, y};
+                        target[x][y] = 1;
+                        queue.add(node);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if ((board[i][j] == 'O') && (target[i][j] != 1)) {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+
+    /**
+     * mianshiti 01.01
+     * https://leetcode-cn.com/problems/number-of-subarrays-with-bounded-maximum/
+     */
+    public boolean isUnique(String astr) {
+        for (int i = 0; i < astr.length(); i++) {
+            if (astr.lastIndexOf(astr.charAt(i)) != i) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 624
+     * https://leetcode-cn.com/problems/maximum-distance-in-arrays/
+     */
+    public int maxDistance(List<List<Integer>> arrays) {
+        int min = 10001;
+        int max = -10001;
+        int ans = 0;
+        for (List<Integer> list : arrays) {
+            if (min == 10001) {
+                min = list.get(0);
+                max = list.get(list.size() - 1);
+            } else {
+                ans = Math.max(ans, max - list.get(0));
+                ans = Math.max(ans, list.get(list.size() - 1) - min);
+                max = Math.max(max, list.get(list.size() - 1));
+                min = Math.min(min, list.get(0));
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 455
+     * https://leetcode-cn.com/problems/assign-cookies/
+     */
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int gi = 0;
+        int si = 0;
+        while ((gi < g.length) && (si < s.length)) {
+            if (g[gi] <= s[si]) {
+                gi++;
+            }
+            si++;
+        }
+        return gi;
+    }
+
+    /**
+     * 845
+     * https://leetcode-cn.com/problems/longest-mountain-in-array/
+     */
+    public int longestMountain(int[] A) {
+        if (A.length <= 2) {
+            return 0;
+        }
+        int ans = 0;
+        for (int i = 1; i < A.length - 1; i++) {
+            if ((A[i - 1] < A[i]) && (A[i + 1] < A[i])) {
+                int l = i - 1;
+                int r = i + 1;
+                while ((l > 0) && (A[l - 1] < A[l])) {
+                    l--;
+                }
+                while ((r < A.length - 1) && (A[r + 1] < A[r])) {
+                    r++;
+                }
+                ans = Math.max(ans, r - l + 1);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 747
+     * https://leetcode-cn.com/problems/largest-number-at-least-twice-of-others/
+     */
+    public int dominantIndex(int[] nums) {
+        if (nums.length <= 1) {
+            return 0;
+        }
+        int max;
+        int maxp;
+        if (nums[0] > nums[1]) {
+            max = 0;
+            maxp = 1;
+        } else {
+            maxp = 0;
+            max = 1;
+        }
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] > nums[max]) {
+                maxp = max;
+                max = i;
+            } else if (nums[i] > nums[maxp]) {
+                maxp = i;
+            }
+        }
+        return (nums[max] >= (nums[maxp] * 2)) ? max : -1;
+    }
+
+    /**
+     * 1119
+     * https://leetcode-cn.com/problems/remove-vowels-from-a-string/
+     */
+    public String removeVowels(String S) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            if ((S.charAt(i) != 'a') && (S.charAt(i) != 'e') && (S.charAt(i) != 'o') && (S.charAt(i) != 'i') && (S.charAt(i) != 'u')) {
+                sb.append(S.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * mianshiti 17.09
+     * https://leetcode-cn.com/problems/get-kth-magic-number-lcci/
+     */
+    public int getKthMagicNumber(int k) {
+        int[] dp = new int[k];
+        dp[0] = 1;
+        int num3 = 0;
+        int num5 = 0;
+        int num7 = 0;
+
+        for (int i = 1; i < k; i++) {
+            dp[i] = Math.min(dp[num3] * 3, dp[num5] * 5);
+            dp[i] = Math.min(dp[i], dp[num7] * 7);
+            if (dp[i] % 3 == 0) {
+                num3++;
+            }
+            if (dp[i] % 5 == 0) {
+                num5++;
+            }
+            if (dp[i] % 7 == 0) {
+                num7++;
+            }
+        }
+        return dp[k - 1];
+    }
+
+    /**
+     * 242
+     * https://leetcode-cn.com/problems/valid-anagram/
+     */
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        int[] count1 = new int[26];
+        int[] count2 = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count1[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            count2[t.charAt(i) - 'a']++;
+        }
+
+        for (int i = 0; i < 26; i++) {
+            if (count1[i] != count2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 899
+     * https://leetcode-cn.com/problems/orderly-queue/
+     */
+    public String orderlyQueue(String S, int K) {
+        if (K > 1) {
+            char[] chars = S.toCharArray();
+            Arrays.sort(chars);
+            StringBuilder sb = new StringBuilder();
+            for (char c : chars) {
+                sb.append(c);
+            }
+            return sb.toString();
+        }
+        String ss = S + S;
+        String ans = S;
+        for (int i = 0; i < S.length(); i++) {
+            if (ans.compareTo(ss.substring(i, i + S.length())) > 0) {
+                ans = ss.substring(i, i + S.length());
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1544
+     * https://leetcode-cn.com/problems/make-the-string-great/
+     */
+    public String makeGood(String s) {
+        if (s.length() <= 1) {
+            return s;
+        }
+        boolean[] flag = new boolean[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            flag[i] = true;
+        }
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (flag[i]) {
+                int j = i + 1;
+                while (j < s.length() && !flag[j]) {
+                    j++;
+                }
+                if (j < s.length() && (Math.abs(s.charAt(i) - s.charAt(j)) == 'a' - 'A')) {
+                    flag[i] = false;
+                    flag[j] = false;
+                    i = -1;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (flag[i]) {
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 1402
+     * https://leetcode-cn.com/problems/reducing-dishes/
+     */
+    public int maxSatisfaction(int[] satisfaction) {
+        Arrays.sort(satisfaction);
+        int ans = 0;
+        int sum = 0;
+        for (int i = satisfaction.length - 1; i >= 0; i--) {
+            sum += satisfaction[i];
+            if (sum > 0) {
+                ans += sum;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1085
+     * https://leetcode-cn.com/problems/sum-of-digits-in-the-minimum-number/
+     */
+    public int sumOfDigits(int[] A) {
+        int min = A[0];
+        for (int i = 1; i < A.length; i++) {
+            min = Math.min(min, A[i]);
+        }
+        int ans = 0;
+        while (min > 0) {
+            ans += min % 10;
+            min /= 10;
+        }
+        return (ans % 2 == 1) ? 0 : 1;
+    }
+
+    /**
+     * 1394
+     * https://leetcode-cn.com/problems/find-lucky-integer-in-an-array/
+     */
+    public int findLucky(int[] arr) {
+        int[] count = new int[501];
+        for (int i : arr) {
+            count[i]++;
+        }
+        int ans = -1;
+        for (int i = 1; i < 501; i++) {
+            if (count[i] == i) {
+                ans = i;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 518
+     * https://leetcode-cn.com/problems/coin-change-2/
+     */
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        for (int coin : coins) {
+            for (int i = 1; i < amount + 1; i++) {
+                if (i - coin >= 0) {
+                    dp[i] += dp[i - coin];
+                }
+            }
+        }
+        return dp[amount];
+    }
+
+    /**
+     * mianshiti 05.03
+     * https://leetcode-cn.com/problems/reverse-bits-lcci/
+     */
+    public int reverseBits(int num) {
+        List<Integer> list = new ArrayList<>();
+        int count = 0;
+        while (num != 0) {
+            if (num % 2 == 1) {
+                count++;
+            } else {
+                list.add(count);
+                count = 0;
+            }
+            num /= 2;
+        }
+        list.add(count);
+        if (list.size() == 1) {
+            return list.get(0) + 1;
+        }
+        int ans = 0;
+        for (int i = 0; i < list.size() - 1; i++) {
+            ans = Math.max(ans, list.get(i) + list.get(i + 1));
+        }
+        return ans + 1;
+    }
+
+    /**
+     * 754
+     * https://leetcode-cn.com/problems/reach-a-number/
+     */
+    public int reachNumber(int target) {
+        int t = Math.abs(target);
+        int time = 0;
+        int dis = 0;
+        while (dis < t) {
+            time++;
+            dis += time;
+
+        }
+        int dt = dis - t;
+        if (dt % 2 == 0)
+            return time;
+        else {
+            if (time % 2 == 0)
+                return time + 1;
+            else
+                return time + 2;
+        }
+    }
+
+    /**
+     * 1004
+     * https://leetcode-cn.com/problems/max-consecutive-ones-iii/
+     */
+    public int longestOnes(int[] A, int K) {
+        List<Integer> list = new ArrayList<>();
+        int count = 0;
+        for (int num : A) {
+            if (num == 1) {
+                count++;
+            } else {
+                list.add(count);
+                count = 0;
+            }
+        }
+        list.add(count);
+        if (list.size() <= K) {
+            return A.length;
+        }
+        int ans = 0;
+        for (int i = 0; i < K + 1; i++) {
+            ans += list.get(i);
+        }
+        int sum = ans;
+        for (int i = 1; i < list.size() - K; i++) {
+            sum = sum - list.get(i - 1) + list.get(i + K);
+            ans = Math.max(ans, sum);
+        }
+        return ans + K;
+    }
+}
