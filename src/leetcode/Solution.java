@@ -3148,4 +3148,310 @@ public class Solution {
         }
         return ans + K;
     }
+
+    class Node {
+        public int val;
+        public List<Node> neighbors;
+
+        public Node() {
+            val = 0;
+            neighbors = new ArrayList<Node>();
+        }
+
+        public Node(int _val) {
+            val = _val;
+            neighbors = new ArrayList<Node>();
+        }
+
+        public Node(int _val, ArrayList<Node> _neighbors) {
+            val = _val;
+            neighbors = _neighbors;
+        }
+    }
+
+    /**
+     * 133
+     * https://leetcode-cn.com/problems/clone-graph/
+     */
+    HashMap<Node, Node> visited = new HashMap();
+
+    public Node cloneGraph(Node node) {
+        return dfs(node);
+    }
+
+    public Node dfs(Node node) {
+        if (node == null) return null;
+        if (visited.containsKey(node)) {
+            return visited.get(node);
+        }
+        Node copy = new Node(node.val, new ArrayList<Node>());
+        visited.put(node, copy);
+        for (Node next : node.neighbors) {
+            copy.neighbors.add(dfs(next));
+        }
+        return copy;
+    }
+
+    /**
+     * 453
+     * https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/
+     */
+    public int minMoves(int[] nums) {
+        int sum = nums[0];
+        int min = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            sum += nums[i];
+            min = Math.min(nums[i], min);
+        }
+        return sum - min * nums.length;
+    }
+
+    /**
+     * 462
+     * https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements-ii/
+     */
+    public int minMoves2(int[] nums) {
+        Arrays.sort(nums);
+        int target = (nums.length % 2 == 0) ? nums.length / 2 : (nums.length - 1) / 2;
+        int ans = 0;
+        for (int num : nums) {
+            ans += Math.abs(num - nums[target]);
+        }
+        return ans;
+    }
+
+    /**
+     * 296
+     * https://leetcode-cn.com/problems/best-meeting-point/
+     */
+    public int minTotalDistance(int[][] grid) {
+        List<Integer> x = new ArrayList<>();
+        List<Integer> y = new ArrayList<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    x.add(i);
+                    y.add(j);
+                }
+            }
+        }
+        Collections.sort(x);
+        Collections.sort(y);
+        int ans = 0;
+        int targetx = x.get(x.size() / 2);
+        int targety = y.get(y.size() / 2);
+        for (int i = 0; i < x.size(); i++) {
+            ans += Math.abs(x.get(i) - targetx) + Math.abs(y.get(i) - targety);
+        }
+        return ans;
+    }
+
+    /**
+     * 442
+     * https://leetcode-cn.com/problems/find-all-duplicates-in-an-array/
+     */
+    public List<Integer> findDuplicates(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            nums[(nums[i] - 1) % nums.length] += nums.length;
+        }
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 2 * nums.length) {
+                ans.add(i + 1);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 1427
+     * https://leetcode-cn.com/problems/perform-string-shifts/
+     */
+    public String stringShift(String s, int[][] shift) {
+        int length = s.length();
+        int move = 0;
+        for (int i = 0; i < shift.length; i++) {
+            if (shift[i][0] == 0) {
+                move += shift[i][1];
+            } else {
+                move -= shift[i][1];
+            }
+        }
+
+        move %= length;
+        move = (move < 0) ? move + length : move;
+
+        s = s + s;
+        return s.substring(move, move + length);
+    }
+
+    /**
+     * 313
+     * https://leetcode-cn.com/problems/super-ugly-number/
+     */
+    public int nthSuperUglyNumber(int n, int[] primes) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        int[] nums = new int[primes.length];
+
+        for (int i = 1; i < n; i++) {
+            dp[i] = Integer.MAX_VALUE;
+            for (int j = 0; j < primes.length; j++) {
+                dp[i] = Math.min(dp[i], dp[nums[j]] * primes[j]);
+            }
+            for (int j = 0; j < primes.length; j++) {
+                if (dp[i] % primes[j] == 0) {
+                    nums[j]++;
+                }
+            }
+        }
+        return dp[n - 1];
+    }
+
+    /**
+     * 263
+     * https://leetcode-cn.com/problems/ugly-number/
+     */
+    public boolean isUgly(int num) {
+        if (num == 0) {
+            return false;
+        }
+        if (num < 0) {
+            return false;
+        }
+        while (num % 2 == 0) {
+            num /= 2;
+        }
+        while (num % 3 == 0) {
+            num /= 3;
+        }
+        while (num % 5 == 0) {
+            num /= 5;
+        }
+        return num == 1;
+    }
+
+    /**
+     * 404
+     * https://leetcode-cn.com/problems/sum-of-left-leaves/
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) return 0;
+        int ans = 0;
+        if (root.left != null && root.left.left == null && root.left.right == null) {
+            ans += root.left.val;
+        }
+        return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right) + ans;
+    }
+
+    /**
+     * 1103
+     * https://leetcode-cn.com/problems/distribute-candies-to-people/
+     */
+    public int[] distributeCandies(int candies, int num_people) {
+        int[] ans = new int[num_people];
+        int n = 0;
+        while (candies > 0) {
+            n++;
+            ans[(n - 1) % num_people] += Math.min(candies, n);
+            candies -= n;
+        }
+        return ans;
+    }
+
+    /**
+     * 168
+     * https://leetcode-cn.com/problems/excel-sheet-column-title/
+     */
+    public String convertToTitle(int n) {
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            n--;
+            sb.append((char) (n % 26 + 'A'));
+            n /= 26;
+        }
+        return sb.reverse().toString();
+    }
+
+    /**
+     * 171
+     * https://leetcode-cn.com/problems/excel-sheet-column-number/
+     */
+    public int titleToNumber(String s) {
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            ans *= 26;
+            ans += s.charAt(i) - 'A' + 1;
+        }
+        return ans;
+    }
+
+    /**
+     * 718
+     * https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/
+     */
+    public int findLength(int[] A, int[] B) {
+        int[][] dp = new int[A.length][B.length];
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                if (A[i] == B[j]) {
+                    if ((i != 0) && (j != 0)) {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        dp[i][j] = 1;
+                    }
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < B.length; j++) {
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 413
+     * https://leetcode-cn.com/problems/arithmetic-slices/
+     */
+    public int numberOfArithmeticSlices(int[] A) {
+        if (A.length <= 2) {
+            return 0;
+        }
+        int[] dp = new int[A.length];
+        for (int i = 2; i < A.length; i++) {
+            if ((2 * A[i - 1]) == (A[i] + A[i - 2])) {
+                dp[i] = dp[i - 1] + 1;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < A.length; i++) {
+            ans += dp[i];
+        }
+        return ans;
+    }
+
+    /**
+     * 63
+     * https://leetcode-cn.com/problems/unique-paths-ii/
+     */
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if (obstacleGrid[0][0] == 1) {
+            return 0;
+        }
+        int[] dp = new int[obstacleGrid[0].length];
+        dp[0] = 1;
+        for (int j = 1; j < obstacleGrid[0].length; j++) {
+            dp[j] = (obstacleGrid[0][j] == 1) ? 0 : dp[j - 1];
+        }
+        for (int i = 1; i < obstacleGrid.length; i++) {
+            dp[0] = (obstacleGrid[i][0] == 1) ? 0 : dp[0];
+            for (int j = 1; j < obstacleGrid[0].length; j++) {
+                dp[j] = (obstacleGrid[i][j] == 1) ? 0 : dp[j - 1] + dp[j];
+            }
+        }
+        return dp[obstacleGrid[0].length - 1];
+    }
 }
