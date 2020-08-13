@@ -277,7 +277,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 08.11
+     * 面试题 08.11
      * https://leetcode-cn.com/problems/coin-lcci/
      */
     public int waysToChange(int n) {
@@ -1000,7 +1000,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 01.09
+     * 面试题 01.09
      * https://leetcode-cn.com/problems/string-rotation-lcci/
      */
     public boolean isFlipedString(String s1, String s2) {
@@ -1191,7 +1191,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 08.03
+     * 面试题 08.03
      * https://leetcode-cn.com/problems/magic-index-lcci/
      */
     public int findMagicIndex(int[] nums) {
@@ -1315,7 +1315,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 01.07
+     * 面试题 01.07
      * https://leetcode-cn.com/problems/rotate-matrix-lcci/
      */
     public void rotate(int[][] matrix) {
@@ -1769,7 +1769,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 01.08
+     * 面试题 01.08
      * https://leetcode-cn.com/problems/zero-matrix-lcci/
      */
     public void setZeroes(int[][] matrix) {
@@ -1967,7 +1967,7 @@ public class Solution {
      * 227
      * https://leetcode-cn.com/problems/basic-calculator-ii/
      * <p>
-     * mianshiti 16.26
+     * 面试题 16.26
      * https://leetcode-cn.com/problems/calculator-lcci/
      */
     public int calculate(String s) {
@@ -2149,7 +2149,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 08.04
+     * 面试题 08.04
      * https://leetcode-cn.com/problems/power-set-lcci/
      */
     public List<List<Integer>> subsets(int[] nums) {
@@ -2308,7 +2308,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 08.05
+     * 面试题 08.05
      * https://leetcode-cn.com/problems/recursive-mulitply-lcci/
      */
     public int multiply(int A, int B) {
@@ -2769,7 +2769,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 01.01
+     * 面试题 01.01
      * https://leetcode-cn.com/problems/number-of-subarrays-with-bounded-maximum/
      */
     public boolean isUnique(String astr) {
@@ -2889,7 +2889,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 17.09
+     * 面试题 17.09
      * https://leetcode-cn.com/problems/get-kth-magic-number-lcci/
      */
     public int getKthMagicNumber(int k) {
@@ -3068,7 +3068,7 @@ public class Solution {
     }
 
     /**
-     * mianshiti 05.03
+     * 面试题 05.03
      * https://leetcode-cn.com/problems/reverse-bits-lcci/
      */
     public int reverseBits(int num) {
@@ -3453,5 +3453,203 @@ public class Solution {
             }
         }
         return dp[obstacleGrid[0].length - 1];
+    }
+
+    /**
+     * 43
+     * https://leetcode-cn.com/problems/multiply-strings/
+     */
+    public String multiply(String num1, String num2) {
+        if (num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+        int n = num1.length();
+        int m = num2.length();
+        int[] multi = new int[n + m];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = m - 1; j >= 0; j--) {
+                multi[i + j + 1] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+            }
+        }
+        for (int i = n + m - 1; i > 0; i--) {
+            if (multi[i] >= 10) {
+                multi[i - 1] += multi[i] / 10;
+                multi[i] %= 10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (multi[i] == 0) {
+            i++;
+        }
+        while (i < n + m) {
+            sb.append(multi[i]);
+            i++;
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 23
+     * https://leetcode-cn.com/problems/merge-k-sorted-lists/
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists.length == 0) {
+            return null;
+        }
+        if (lists.length == 1) {
+            return lists[0];
+        }
+        ListNode head = lists[0];
+        for (int i = 1; i < lists.length; i++) {
+            head = work23(head, lists[i]);
+        }
+        return head;
+    }
+
+    public ListNode work23(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+
+        ListNode head = null;
+        if (l1.val <= l2.val) {
+            head = l1;
+            head.next = work23(l1.next, l2);
+        } else {
+            head = l2;
+            head.next = work23(l1, l2.next);
+        }
+        return head;
+    }
+
+    /**
+     * 222
+     * https://leetcode-cn.com/problems/count-complete-tree-nodes/
+     */
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+
+    /**
+     * 361
+     * https://leetcode-cn.com/problems/bomb-enemy/
+     */
+    public int maxKilledEnemies(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] es = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 'E') {
+                    int ii = i - 1;
+                    while ((ii >= 0) && (grid[ii][j] != 'W')) {
+                        if (grid[ii][j] == '0') {
+                            es[ii][j]++;
+                        }
+                        ii--;
+                    }
+                    ii = i + 1;
+                    while ((ii < n) && (grid[ii][j] != 'W')) {
+                        if (grid[ii][j] == '0') {
+                            es[ii][j]++;
+                        }
+                        ii++;
+                    }
+                    int jj = j - 1;
+                    while ((jj >= 0) && (grid[i][jj] != 'W')) {
+                        if (grid[i][jj] == '0') {
+                            es[i][jj]++;
+                        }
+                        jj--;
+                    }
+                    jj = j + 1;
+                    while ((jj < m) && (grid[i][jj] != 'W')) {
+                        if (grid[i][jj] == '0') {
+                            es[i][jj]++;
+                        }
+                        jj++;
+                    }
+                }
+            }
+        }
+        int ans = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                ans = Math.max(ans, es[i][j]);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 781
+     * https://leetcode-cn.com/problems/rabbits-in-forest/
+     */
+    public int numRabbits(int[] answers) {
+        if (answers.length == 0) {
+            return 0;
+        }
+        if (answers.length == 1) {
+            return answers[0] + 1;
+        }
+        int ans = 0;
+        Arrays.sort(answers);
+        int i = 0;
+        while (i < answers.length) {
+            int count = 1;
+            while ((i + 1 < answers.length) && (answers[i + 1] == answers[i])) {
+                i++;
+                count++;
+            }
+            while (count % (answers[i] + 1) != 0) {
+                count++;
+            }
+            ans += count;
+            i++;
+        }
+        return ans;
+    }
+
+    /**
+     * 1066
+     * https://leetcode-cn.com/problems/campus-bikes-ii/
+     */
+    int min1066;
+
+    public int assignBikes(int[][] workers, int[][] bikes) {
+        min1066 = Integer.MAX_VALUE;
+        int n = workers.length;
+        int m = bikes.length;
+        int[][] distance = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                distance[i][j] = Math.abs(workers[i][0] - bikes[j][0]) + Math.abs(workers[i][1] - bikes[j][1]);
+            }
+        }
+        work1066(distance, new boolean[m], 0, 0);
+        return min1066;
+    }
+
+    void work1066(int[][] distance, boolean[] flags, int n, int sum) {
+        if (sum > min1066) {
+            return;
+        }
+        if (n >= distance.length) {
+            min1066 = sum;
+        } else {
+            for (int i = 0; i < flags.length; i++) {
+                if (!flags[i]) {
+                    flags[i] = true;
+                    work1066(distance, flags, n + 1, sum + distance[n][i]);
+                    flags[i] = false;
+                }
+            }
+        }
     }
 }
