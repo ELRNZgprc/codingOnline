@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Solution {
@@ -204,6 +203,9 @@ public class Solution {
 
         ListNode(int x) {
             val = x;
+        }
+
+        ListNode() {
         }
     }
 
@@ -3502,22 +3504,7 @@ public class Solution {
         }
         ListNode head = lists[0];
         for (int i = 1; i < lists.length; i++) {
-            head = work23(head, lists[i]);
-        }
-        return head;
-    }
-
-    public ListNode work23(ListNode l1, ListNode l2) {
-        if (l1 == null) return l2;
-        if (l2 == null) return l1;
-
-        ListNode head = null;
-        if (l1.val <= l2.val) {
-            head = l1;
-            head.next = work23(l1.next, l2);
-        } else {
-            head = l2;
-            head.next = work23(l1, l2.next);
+            head = mergeTwoLists(head, lists[i]);
         }
         return head;
     }
@@ -3651,5 +3638,411 @@ public class Solution {
                 }
             }
         }
+    }
+
+    /**
+     * 20
+     * https://leetcode-cn.com/problems/valid-parentheses/
+     */
+    public boolean isValid20(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if ((c == '(') || (c == '[') || (c == '{')) {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                switch (c) {
+                    case ')':
+                        if (stack.pop() != '(') {
+                            return false;
+                        }
+                        break;
+                    case ']':
+                        if (stack.pop() != '[') {
+                            return false;
+                        }
+                        break;
+                    case '}':
+                        if (stack.pop() != '{') {
+                            return false;
+                        }
+                        break;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    /**
+     * 1003
+     * https://leetcode-cn.com/problems/check-if-word-is-valid-after-substitutions/
+     */
+    public boolean isValid1003(String S) {
+        Stack<Integer> stack = new Stack<>();
+        int i = 0;
+        while (i < S.length()) {
+            if (S.charAt(i) == 'a') {
+                if (i >= S.length() - 2) {
+                    return false;
+                }
+                if (S.charAt(i + 1) != 'b') {
+                    stack.push(1);
+                    i++;
+                } else if (S.charAt(i + 2) != 'c') {
+                    stack.push(2);
+                    i += 2;
+                } else {
+                    i += 3;
+                }
+            } else if (S.charAt(i) == 'b') {
+                if (i >= S.length() - 1) {
+                    return false;
+                }
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                if (stack.pop() != 1) {
+                    return false;
+                }
+                if (S.charAt(i + 1) != 'c') {
+                    stack.push(2);
+                    i++;
+                } else {
+                    i += 2;
+                }
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                if (stack.pop() != 2) {
+                    return false;
+                }
+                i++;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    /**
+     * 461
+     * https://leetcode-cn.com/problems/hamming-distance/
+     */
+    public int hammingDistance(int x, int y) {
+        int ans = 0;
+        while ((x != 0) || (y != 0)) {
+            if ((x % 2) != (y % 2)) {
+                ans++;
+            }
+            x /= 2;
+            y /= 2;
+        }
+        return ans;
+    }
+
+    /**
+     * 275
+     * https://leetcode-cn.com/problems/h-index-ii/
+     */
+    public int hIndex(int[] citations) {
+        int len = citations.length;
+        int start = 0;
+        int end = len - 1;
+        int ans = 0;
+
+        while (start <= end) {
+            int mid = (start + end) >> 1;
+            int paperCnt = len - mid;
+            if (paperCnt <= citations[mid]) {
+                ans = paperCnt;
+                end = mid - 1;
+            } else
+                start = mid + 1;
+        }
+        return ans;
+    }
+
+    /**
+     * 21
+     * https://leetcode-cn.com/problems/merge-two-sorted-lists/
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+
+        ListNode head = null;
+        if (l1.val <= l2.val) {
+            head = l1;
+            head.next = mergeTwoLists(l1.next, l2);
+        } else {
+            head = l2;
+            head.next = mergeTwoLists(l1, l2.next);
+        }
+        return head;
+    }
+
+    /**
+     * 1342
+     * https://leetcode-cn.com/problems/number-of-steps-to-reduce-a-number-to-zero/
+     */
+    public int numberOfSteps(int num) {
+        int ans = 0;
+        while (num != 0) {
+            ans++;
+            if ((num % 2 != 0) && (num != 1)) {
+                ans++;
+            }
+            num /= 2;
+        }
+        return ans;
+    }
+
+    /**
+     * 477
+     * https://leetcode-cn.com/problems/total-hamming-distance/
+     */
+    public int totalHammingDistance(int[] nums) {
+        int ans = 0;
+        for (int i = 0; i < 31; i++) {
+            int[] count = new int[2];
+            for (int j = 0; j < nums.length; j++) {
+                count[nums[j] % 2]++;
+                nums[j] /= 2;
+            }
+            ans += count[0] * count[1];
+        }
+        return ans;
+    }
+
+    /**
+     * 1344
+     * https://leetcode-cn.com/problems/angle-between-hands-of-a-clock/
+     */
+    public double angleClock(int hour, int minutes) {
+        double c = Math.abs(minutes * 6 - (hour % 12 * 30 + minutes / 2.0));
+        return Math.min(c, 360 - c);
+    }
+
+    /**
+     * 1079
+     * https://leetcode-cn.com/problems/letter-tile-possibilities/
+     */
+    int ans1079;
+
+    public int numTilePossibilities(String tiles) {
+        int[] chars = new int[26];
+        ans1079 = 0;
+        for (int i = 0; i < tiles.length(); i++) {
+            chars[tiles.charAt(i) - 'A']++;
+        }
+        work1079(chars);
+        return ans1079;
+    }
+
+    void work1079(int[] chars) {
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] > 0) {
+                ans1079++;
+                chars[i]--;
+                work1079(chars);
+                chars[i]++;
+            }
+        }
+    }
+
+    /**
+     * 82
+     * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
+     */
+    public ListNode deleteDuplicates82(ListNode head) {
+        if ((head == null) || (head.next == null)) {
+            return head;
+        }
+        ListNode next = head.next;
+        if (head.val == next.val) {
+            while ((next != null) && (next.val == head.val)) {
+                next = next.next;
+            }
+            head = deleteDuplicates82(next);
+        } else {
+            head.next = deleteDuplicates82(next);
+        }
+        return head;
+    }
+
+    /**
+     * 83
+     * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        if ((head == null) || (head.next == null)) {
+            return head;
+        }
+        head.next = deleteDuplicates(head.next);
+        if (head.val == head.next.val) head = head.next;
+        return head;
+    }
+
+    /**
+     * 1063
+     * https://leetcode-cn.com/problems/number-of-valid-subarrays/
+     */
+    public int validSubarrays(int[] nums) {
+        if (nums.length < 1) {
+            return 0;
+        }
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            ans++;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] >= nums[i]) {
+                    ans++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 945
+     * https://leetcode-cn.com/problems/minimum-increment-to-make-array-unique/
+     */
+    public int minIncrementForUnique(int[] A) {
+        Arrays.sort(A);
+        int ans = 0;
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] <= A[i - 1]) {
+                ans += A[i - 1] + 1 - A[i];
+                A[i] = A[i - 1] + 1;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 面试题 02.04
+     * https://leetcode-cn.com/problems/partition-list-lcci/
+     */
+    public ListNode partition(ListNode head, int x) {
+        if ((head == null) || (head.next == null)) {
+            return head;
+        }
+        ListNode small = new ListNode();
+        ListNode big = new ListNode();
+        ListNode p = head;
+        ListNode sp = small;
+        ListNode bp = big;
+        while (p != null) {
+            if (p.val < x) {
+                sp.next = p;
+                sp = sp.next;
+            } else {
+                bp.next = p;
+                bp = bp.next;
+            }
+            p = p.next;
+        }
+        sp.next = big.next;
+        bp.next = null;
+        return small.next;
+    }
+
+    /**
+     * 935
+     * https://leetcode-cn.com/problems/knight-dialer/
+     */
+    public int knightDialer(int N) {
+        if (N == 1) {
+            return 10;
+        }
+        int[] record = new int[10];
+        int[] cache = new int[10];
+        for (int i = 0; i < 10; i++) {
+            record[i] = 1;
+        }
+        for (int k = 1; k < N; k++) {
+            cache[0] = record[4] + record[6];
+            cache[1] = record[8] + record[6];
+            cache[2] = record[7] + record[9];
+            cache[3] = record[4] + record[8];
+            cache[4] = (record[3] + record[9]) % 1000000007 + record[0];
+            cache[5] = 0;
+            cache[6] = (record[1] + record[7]) % 1000000007 + record[0];
+            cache[7] = record[2] + record[6];
+            cache[8] = record[1] + record[3];
+            cache[9] = record[4] + record[2];
+            for (int i = 0; i < 10; i++) {
+                record[i] = cache[i] % 1000000007;
+            }
+        }
+        int ans = 0;
+        for (int i = 0; i < 10; i++) {
+            ans = (ans + record[i]) % 1000000007;
+        }
+        return ans;
+    }
+
+    /**
+     * 1363
+     * https://leetcode-cn.com/problems/largest-multiple-of-three/
+     */
+    public String largestMultipleOfThree(int[] digits) {
+        if (digits.length == 0) return "";
+        Arrays.sort(digits);
+        if (digits[digits.length - 1] == 0) {
+            return "0";
+        }
+        int sum = 0;
+        boolean[] flag = new boolean[digits.length];
+        for (int i = 0; i < digits.length; i++) {
+            sum += digits[i];
+            flag[i] = true;
+        }
+        if (sum % 3 == 1) {
+            int i = 0;
+            while ((sum % 3 != 0) && (i < digits.length)) {
+                if (digits[i] % 3 == 1) {
+                    sum -= digits[i];
+                    flag[i] = false;
+                }
+                i++;
+            }
+            i = 0;
+            while ((sum % 3 != 0) && (i < digits.length)) {
+                if (digits[i] % 3 == 2) {
+                    sum -= digits[i];
+                    flag[i] = false;
+                }
+                i++;
+            }
+        }
+        if (sum % 3 == 2) {
+            int i = 0;
+            while ((sum % 3 != 0) && (i < digits.length)) {
+                if (digits[i] % 3 == 2) {
+                    sum -= digits[i];
+                    flag[i] = false;
+                }
+                i++;
+            }
+            i = 0;
+            while ((sum % 3 != 0) && (i < digits.length)) {
+                if (digits[i] % 3 == 1) {
+                    sum -= digits[i];
+                    flag[i] = false;
+                }
+                i++;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (flag[i]) {
+                sb.append(digits[i]);
+            }
+        }
+        return sb.toString();
     }
 }
