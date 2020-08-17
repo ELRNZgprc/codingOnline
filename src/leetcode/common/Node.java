@@ -1,7 +1,5 @@
 package leetcode.common;
 
-import leetcode.Solution;
-
 import java.util.ArrayList;
 import java.util.List;
 
