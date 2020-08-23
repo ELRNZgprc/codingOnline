@@ -13,7 +13,6 @@ public class FindLadders {
     private boolean[] visited;
     private List<String> ans;
     private List<String> wordList;
-    private boolean found;
 
     public List<String> findLadders(String beginWord, String endWord, List<String> wordList) {
         begin = -1;
@@ -54,7 +53,6 @@ public class FindLadders {
         }
 
         visited = new boolean[wordList.size()];
-        found = false;
         ans = new ArrayList<>();
         dfs(begin);
         Collections.reverse(ans);
