@@ -10,7 +10,7 @@ public class LetterCombinations {
      */
     List<String> ans;
     StringBuilder sb;
-    String[] c = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    String[] ch = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
     public List<String> letterCombinations(String digits) {
 
@@ -28,7 +28,7 @@ public class LetterCombinations {
             ans.add(sb.toString());
             return;
         }
-        for (char c : c[digits.charAt(i) - '2'].toCharArray()) {
+        for (char c : ch[digits.charAt(i) - '2'].toCharArray()) {
             sb.append(c);
             dps(digits, i + 1);
             sb.deleteCharAt(i);
