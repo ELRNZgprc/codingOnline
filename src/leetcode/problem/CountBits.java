@@ -6,7 +6,7 @@ public class CountBits {
      * https://leetcode-cn.com/problems/counting-bits/
      */
     public int[] countBits(int num) {
-        int dp[] = new int[num + 1];
+        int[] dp = new int[num + 1];
         for (int i = 0; i <= num / 2; i++) {
             dp[i * 2] = dp[i];
             if (i * 2 + 1 <= num) {
