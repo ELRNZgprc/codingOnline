@@ -7,11 +7,11 @@ public class ReverseWords {
      */
     public String reverseWords(String s) {
         String[] strs = s.split(" ");
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < strs.length; i++) {
-            buffer.append(new StringBuffer(strs[i]).reverse().toString());
-            buffer.append(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String str : strs) {
+            sb.append(new StringBuilder(str).reverse());
+            sb.append(" ");
         }
-        return buffer.toString().trim();
+        return sb.toString().trim();
     }
 }
