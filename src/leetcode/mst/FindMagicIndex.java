@@ -1,8 +1,8 @@
 package leetcode.mst;
 
-public class findMagicIndex {
+public class FindMagicIndex {
     /**
-     * 面试题 08.03
+     * 面试题 08.03. 魔术索引
      * https://leetcode-cn.com/problems/magic-index-lcci/
      */
     public int findMagicIndex(int[] nums) {
