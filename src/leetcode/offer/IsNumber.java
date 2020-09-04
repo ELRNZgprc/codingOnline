@@ -12,10 +12,6 @@ public class IsNumber {
             return false;
         }
 
-        if ((s.indexOf("f") != -1 || s.indexOf("F") != -1 || s.indexOf("d") != -1 || s.indexOf("D") != -1)) {
-            return false;
-        }
-
-        return true;
+        return !((s.contains("f") || s.contains("F") || s.contains("d") || s.contains("D")));
     }
 }
