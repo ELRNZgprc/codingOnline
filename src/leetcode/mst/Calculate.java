@@ -2,9 +2,9 @@ package leetcode.mst;
 
 import java.util.Stack;
 
-public class calculate {
+public class Calculate {
     /**
-     * 面试题 16.26
+     * 面试题 16.26. 计算器
      * https://leetcode-cn.com/problems/calculator-lcci/
      */
     public int calculate(String s) {
