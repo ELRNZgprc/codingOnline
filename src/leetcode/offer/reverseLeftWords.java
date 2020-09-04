@@ -1,8 +1,8 @@
-package leetcode.mst;
+package leetcode.offer;
 
 public class reverseLeftWords {
     /**
-     * mainshiti58
+     * 剑指 Offer 58 - II. 左旋转字符串
      * https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
      */
     public String reverseLeftWords(String s, int n) {
