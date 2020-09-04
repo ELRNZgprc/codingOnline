@@ -1,6 +1,6 @@
 package leetcode.problem;
 
-public class addStrings {
+public class AddStrings {
     /**
      * 415. 字符串相加
      * https://leetcode-cn.com/problems/add-strings/
