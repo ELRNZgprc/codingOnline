@@ -2,7 +2,7 @@ package leetcode.problem;
 
 public class addStrings {
     /**
-     * 415
+     * 415. 字符串相加
      * https://leetcode-cn.com/problems/add-strings/
      */
     public String addStrings(String num1, String num2) {
