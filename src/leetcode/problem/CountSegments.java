@@ -1,8 +1,8 @@
 package leetcode.problem;
 
-public class countSegments {
+public class CountSegments {
     /**
-     * 434
+     * 434. 字符串中的单词数
      * https://leetcode-cn.com/problems/number-of-segments-in-a-string/
      */
     public int countSegments(String s) {
