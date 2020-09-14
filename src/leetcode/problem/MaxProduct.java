@@ -2,9 +2,9 @@ package leetcode.problem;
 
 import leetcode.common.TreeNode;
 
-public class maxProduct {
+public class MaxProduct {
     /**
-     * 1339
+     * 1339. 分裂二叉树的最大乘积
      * https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/
      */
     public int maxProduct(TreeNode root) {
