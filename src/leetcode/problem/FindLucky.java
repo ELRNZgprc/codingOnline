@@ -1,8 +1,8 @@
 package leetcode.problem;
 
-public class findLucky {
+public class FindLucky {
     /**
-     * 1394
+     * 1394. 找出数组中的幸运数
      * https://leetcode-cn.com/problems/find-lucky-integer-in-an-array/
      */
     public int findLucky(int[] arr) {
