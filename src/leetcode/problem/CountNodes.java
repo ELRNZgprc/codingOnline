@@ -2,9 +2,9 @@ package leetcode.problem;
 
 import leetcode.common.TreeNode;
 
-public class countNodes {
+public class CountNodes {
     /**
-     * 222
+     * 222. 完全二叉树的节点个数
      * https://leetcode-cn.com/problems/count-complete-tree-nodes/
      */
     public int countNodes(TreeNode root) {
