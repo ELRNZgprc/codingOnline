@@ -2,9 +2,9 @@ package leetcode.problem;
 
 import java.util.Arrays;
 
-public class maxProduct1464 {
+public class MaxProduct1464 {
     /**
-     * 1464
+     * 1464 1464. 数组中两元素的最大乘积
      * https://leetcode-cn.com/problems/maximum-product-of-two-elements-in-an-array/
      */
     public int maxProduct(int[] nums) {
