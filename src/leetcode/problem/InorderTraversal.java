@@ -1,4 +1,4 @@
-package leetcode.mst;
+package leetcode.problem;
 
 import leetcode.common.TreeNode;
 
