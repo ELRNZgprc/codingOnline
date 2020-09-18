@@ -1,8 +1,8 @@
 package leetcode.problem;
 
-public class assignBikes {
+public class AssignBikes {
     /**
-     * 1066
+     * 1066. 校园自行车分配 II
      * https://leetcode-cn.com/problems/campus-bikes-ii/
      */
     int min1066;
