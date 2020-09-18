@@ -2,9 +2,9 @@ package leetcode.problem;
 
 import leetcode.common.ListNode;
 
-public class addTwoNumbers {
+public class AddTwoNumbers {
     /**
-     * 2
+     * 2. 两数相加
      * https://leetcode-cn.com/problems/add-two-numbers/
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
