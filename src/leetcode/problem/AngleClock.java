@@ -1,8 +1,8 @@
 package leetcode.problem;
 
-public class angleClock {
+public class AngleClock {
     /**
-     * 1344
+     * 1344. 时钟指针的夹角
      * https://leetcode-cn.com/problems/angle-between-hands-of-a-clock/
      */
     public double angleClock(int hour, int minutes) {
