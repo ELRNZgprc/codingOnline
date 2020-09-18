@@ -2,7 +2,7 @@ package leetcode.lcp;
 
 public class NumWays {
 	/**
-	 * LCP 07. ´«µİĞÅÏ¢
+	 * LCP 07. ä¼ é€’ä¿¡æ¯
 	 * https://leetcode-cn.com/problems/chuan-di-xin-xi/
 	 */
 	private int plans = 0;
@@ -10,7 +10,7 @@ public class NumWays {
     public int numWays(int n, int[][] relation, int k) {
     	pass(0, 1, n, relation, k);
     	return plans;
-    }   
+    }
 
     public void pass(int start, int times, int n, int[][] relation, int k) {
     	for (int i = 0; i < relation.length; i++) {
@@ -20,7 +20,7 @@ public class NumWays {
 						plans++;
 					}
 				} else {
-					pass(relation[i][1], times + 1, n, relation, k);					
+					pass(relation[i][1], times + 1, n, relation, k);
 				}
 			}
     	}
