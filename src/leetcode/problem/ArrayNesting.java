@@ -1,8 +1,8 @@
 package leetcode.problem;
 
-public class arrayNesting {
+public class ArrayNesting {
     /**
-     * 565
+     * 565. 数组嵌套
      * https://leetcode-cn.com/problems/array-nesting/
      */
     public int arrayNesting(int[] nums) {
