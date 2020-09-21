@@ -15,7 +15,7 @@ public class IsPalindrome234 {
 		}
 		ListNode p = head;
 		ListNode q = head.next;
-		Stack<ListNode> stack = new Stack();
+		Stack<ListNode> stack = new Stack<ListNode>();
 		stack.add(p);
 		boolean flag = false;
 		while (q.next != null) {
