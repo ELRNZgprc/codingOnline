@@ -1,7 +1,5 @@
 package leetcode.problem;
 
-import java.util.regex.Pattern;
-
 public class IsPowerOfThree {
     /**
      * 326. 3的幂
