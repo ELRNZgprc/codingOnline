@@ -22,7 +22,7 @@ public class GetMinDistSum {
 		double dxx = dx(x, y, positions);
 		double dyy = dy(x, y, positions);
 		double dxy = dd;
-		while (Math.abs(dxy) >= 0.0000001) {
+		while (Math.abs(dxy) >= 0.0000005) {
 			x -= dxx * step;
 			y -= dyy * step;
 			double ndd = distance(x, y, positions);
