@@ -12,13 +12,13 @@ public class NumberOfWays {
 		for (int i = 1; i <= length; i++) {
 			int j = 0;
 			int k = i - 1;
-			while (j <= k) {
-				dp[i] = (dp[i] + dp[j] * dp[k]) % 1000000007;
-				if (j != k) {
-					dp[i] = (dp[i] + dp[j] * dp[k]) % 1000000007;
-				}
+			while (j < k) {
+				dp[i] = (dp[i] + dp[j] * dp[k] * 2) % 1000000007;
 				j++;
 				k--;
+			}
+			if (j == k) {
+				dp[i] = (dp[i] + dp[j] * dp[k]) % 1000000007;
 			}
 		}
 		return (int) dp[length];
