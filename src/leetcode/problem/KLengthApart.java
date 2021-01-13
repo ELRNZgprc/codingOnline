@@ -6,11 +6,12 @@ public class KLengthApart {
 	 * https://leetcode-cn.com/problems/check-if-all-1s-are-at-least-length-k-places-away/
 	 */
 	public boolean kLengthApart(int[] nums, int k) {
-		int before = Integer.MIN_VALUE;
+		int before = -100000;
 		for (int i = 0; i < nums.length; i++) {
 			if (nums[i] == 1) {
-				if (i - before - 1 < k)
+				if (i - before - 1 < k) {
 					return false;
+				}
 				before = i;
 			}
 		}
