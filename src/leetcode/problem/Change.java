@@ -1,10 +1,10 @@
 package leetcode.problem;
 
-public class change {
-    /**
-     * 518
-     * https://leetcode-cn.com/problems/coin-change-2/
-     */
+/**
+ * 518. 零钱兑换 II
+ * https://leetcode-cn.com/problems/coin-change-2/
+ */
+public class Change {
     public int change(int amount, int[] coins) {
         int[] dp = new int[amount + 1];
         dp[0] = 1;
