@@ -6,17 +6,17 @@ package leetcode.problem;
  */
 public class RemoveDuplicates1209 {
     public String removeDuplicates(String s, int k) {
-        if (s.length()<k){
+        if (s.length() < k) {
             return s;
         }
-        for (int i=1, len=1;i<s.length();i++){
-            if(s.charAt(i)==s.charAt(i-1)){
+        for (int i = 1, len = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
                 len++;
-            }else{
-                len=1;
+            } else {
+                len = 1;
             }
-            if(len==k){
-                return removeDuplicates(s.substring(0,i-k+1)+s.substring(i+1),k);
+            if (len == k) {
+                return removeDuplicates(s.substring(0, i - k + 1) + s.substring(i + 1), k);
             }
         }
         return s;
