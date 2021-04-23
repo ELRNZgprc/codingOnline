@@ -28,14 +28,14 @@ public class FindDiagonalOrder {
                 size++;
             }
 
-        int[] res = new int[size];
+        int[] ans = new int[size];
         int index = 0;
         for (int i = 0; i < max; i++) {
             while (!stacks[i].isEmpty()) {
-                res[index++] = stacks[i].pop();
+                ans[index++] = stacks[i].pop();
             }
         }
 
-        return res;
+        return ans;
     }
 }
