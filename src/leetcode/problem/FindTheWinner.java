@@ -1,4 +1,4 @@
-package leetcode.mst;
+package leetcode.problem;
 
 /**
  * 1823. 找出游戏的获胜者
