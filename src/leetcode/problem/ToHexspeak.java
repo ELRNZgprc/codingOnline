@@ -6,7 +6,7 @@ package leetcode.problem;
  */
 public class ToHexspeak {
     public String toHexspeak(String num) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         long n = Long.parseLong(num);
         while (n > 0) {
             switch ((int) (n % 16)) {
