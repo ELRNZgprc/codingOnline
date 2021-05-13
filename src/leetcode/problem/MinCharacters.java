@@ -9,10 +9,10 @@ public class MinCharacters {
         int[] aHash = new int[26];
         int[] bHash = new int[26];
         for (char c : a.toCharArray()) {
-            aHash[c - 'a' + 1]++;
+            aHash[c - 'a']++;
         }
         for (char c : b.toCharArray()) {
-            bHash[c - 'a' + 1]++;
+            bHash[c - 'a']++;
         }
         int n = a.length();
         int m = b.length();
