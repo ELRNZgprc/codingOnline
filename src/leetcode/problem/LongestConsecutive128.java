@@ -12,9 +12,9 @@ public class LongestConsecutive128 {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
             if ((map.containsKey(num + 1)) && (map.containsValue(num - 1))) {
-                for (int k : map.keySet()) {
-                    if (map.get(k) == num - 1) {
-                        map.replace(k, map.get(num + 1));
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    if (entry.getValue() == num - 1) {
+                        entry.setValue(map.get(num + 1));
                         map.remove(num + 1);
                         break;
                     }
@@ -23,16 +23,16 @@ public class LongestConsecutive128 {
                 map.put(num, map.get(num + 1));
                 map.remove(num + 1);
             } else if (map.containsValue(num - 1)) {
-                for (int k : map.keySet()) {
-                    if (map.get(k) == num - 1) {
-                        map.replace(k, num);
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    if (entry.getValue() == num - 1) {
+                        entry.setValue(num);
                         break;
                     }
                 }
             } else {
                 boolean needAdd = true;
-                for (int k : map.keySet()) {
-                    if ((k <= num) && (map.get(k) >= num)) {
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    if ((entry.getKey() <= num) && (entry.getValue() >= num)) {
                         needAdd = false;
                         break;
                     }
@@ -44,8 +44,8 @@ public class LongestConsecutive128 {
         }
 
         int ans = 0;
-        for (int k : map.keySet()) {
-            ans = Math.max(ans, map.get(k) - k + 1);
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            ans = Math.max(ans, entry.getValue() - entry.getKey() + 1);
         }
         return ans;
     }
