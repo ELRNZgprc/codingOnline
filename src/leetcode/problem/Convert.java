@@ -13,8 +13,10 @@ public class Convert {
             for (int i = 0; i < numRows && p < n; i++) str[i] += s.charAt(p++);
             for (int i = numRows - 2; i >= 1 && p < n; i--) str[i] += s.charAt(p++);
         }
-        String ans = "";
-        for (int i = 0; i < numRows; i++) ans += str[i];
-        return ans;
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < numRows; i++) {
+            ans.append(str[i]);
+        }
+        return ans.toString();
     }
 }
