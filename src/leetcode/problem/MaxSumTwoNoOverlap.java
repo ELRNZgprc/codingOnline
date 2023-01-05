@@ -6,7 +6,10 @@ package leetcode.problem;
  */
 public class MaxSumTwoNoOverlap {
     public int maxSumTwoNoOverlap(int[] A, int L, int M) {
-        int len = A.length, dpL[] = new int[len - L + 1], dpM[] = new int[len - M + 1], max = 0;
+        int len = A.length;
+        int[] dpL = new int[len - L + 1];
+        int[] dpM = new int[len - M + 1];
+        int max = 0;
         for (int i = 0; i < L; i++)
             dpL[0] += A[i];
         for (int i = 0; i < M; i++)
